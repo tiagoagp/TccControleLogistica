@@ -1,0 +1,369 @@
+﻿@model PucMinas.SistemaControleLogistica.ControleColetaSite.Models.SolicitacaoTransporteModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@section Breadcrumbs{
+    <li class="breadcrumb-item">Home</li>
+    <li class="breadcrumb-item active">Solicitação de Transporte</li>
+}
+
+<h2>Abertura de Solicitação de Transporte</h2>
+<hr>
+
+@using (Html.BeginForm("Inserir", "SolicitacaoTransporte", "POST"))
+{
+    <div class="form-horizontal">
+        <h5>Endereço de Entrega</h5>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CepDestino, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CepDestino, new { htmlAttributes = new { @class = "form-control", Placeholder = "CEP", maxlength = "9", required = true, @id = "cep-destino" } })
+                @Html.ValidationMessageFor(model => model.CepDestino, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RuaDestino, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RuaDestino, new { htmlAttributes = new { @class = "form-control", Placeholder = "Rua", maxlength = "200", required = true, @id = "rua-destino" } })
+                @Html.ValidationMessageFor(model => model.RuaDestino, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NumeroDestino, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NumeroDestino, new { htmlAttributes = new { @class = "form-control", Placeholder = "Número", maxlength = "40", required = true } })
+                @Html.ValidationMessageFor(model => model.NumeroDestino, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ComplementoDestino, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ComplementoDestino, new { htmlAttributes = new { @class = "form-control", Placeholder = "Complemento", maxlength = "60" } })
+                @Html.ValidationMessageFor(model => model.ComplementoDestino, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BairroDestino, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BairroDestino, new { htmlAttributes = new { @class = "form-control", Placeholder = "Bairro", maxlength = "50", required = true, @id = "bairro-destino" } })
+                @Html.ValidationMessageFor(model => model.BairroDestino, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CidadeDestino, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CidadeDestino, new { htmlAttributes = new { @class = "form-control", Placeholder = "Cidade", maxlength = "100", required = true, @id = "cidade-destino" } })
+                @Html.ValidationMessageFor(model => model.CidadeDestino, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EstadoDestino, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EstadoDestino, new { htmlAttributes = new { @class = "form-control", Placeholder = "UF", maxlength = "100", required = true, @id = "estado-destino" } })
+                @Html.ValidationMessageFor(model => model.EstadoDestino, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PontoReferenciaEntrega, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PontoReferenciaEntrega, new { htmlAttributes = new { @class = "form-control", Placeholder = "Ponto de Referência", maxlength = "255", required = true } })
+                @Html.ValidationMessageFor(model => model.PontoReferenciaEntrega, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr />
+
+        <h5>Dados do Recebedor</h5>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NomeRecebedor, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NomeRecebedor, new { htmlAttributes = new { @class = "form-control", Placeholder = "Nome", maxlength = "255", required = true } })
+                @Html.ValidationMessageFor(model => model.NomeRecebedor, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmailRecebedor, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EmailRecebedor, new { htmlAttributes = new { @class = "form-control", Placeholder = "E-mail", maxlength = "255", required = true } })
+                @Html.ValidationMessageFor(model => model.EmailRecebedor, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TelefoneRecebedor, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TelefoneRecebedor, new { htmlAttributes = new { @class = "form-control", Placeholder = "Telefone", maxlength = "20", required = true } })
+                @Html.ValidationMessageFor(model => model.TelefoneRecebedor, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <hr />
+
+        <h5>Dados da Nota Fiscal</h5>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NumeroNF, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NumeroNF, new { htmlAttributes = new { @class = "form-control", Placeholder = "Número", maxlength = "100", required = true } })
+                @Html.ValidationMessageFor(model => model.NumeroNF, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SerieNF, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SerieNF, new { htmlAttributes = new { @class = "form-control", Placeholder = "Série", maxlength = "20", required = true } })
+                @Html.ValidationMessageFor(model => model.SerieNF, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ChaveAcessoNF, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ChaveAcessoNF, new { htmlAttributes = new { @class = "form-control", Placeholder = "Chave de Acesso", maxlength = "100", required = true } })
+                @Html.ValidationMessageFor(model => model.ChaveAcessoNF, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DataEmissaoNF, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DataEmissaoNF, new { htmlAttributes = new { @class = "form-control", Placeholder = "Data de Emissão", required = true } })
+                @Html.ValidationMessageFor(model => model.DataEmissaoNF, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <hr />
+
+        <h5>Produtos</h5>
+        <button type="button" id="adicionar-produto" class="btn btn-primary" style="margin-bottom:10px;"><i class="fas fa-plus"><span style="margin-left:5px;">Produto</span></i></button>
+
+        <div id="lista-produtos"></div>
+
+        <hr />
+
+        <h5>Dados Gerais</h5>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ValorFrete, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ValorFrete, new { htmlAttributes = new { @class = "form-control", Placeholder = "Valor do Frete", required = true, @readonly = true, @id = "valor-frete" } })
+                @Html.ValidationMessageFor(model => model.ValorFrete, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-1" style="margin-top:5px;">
+                <button type="button" class="btn btn-primary" id="simular-frete">Simular</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DataEntrega, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DataEntrega, new { htmlAttributes = new { @class = "form-control", Placeholder = "Data Máxima de Entrega", required = true } })
+                @Html.ValidationMessageFor(model => model.DataEntrega, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Solicitar Transporte" class="btn btn-primary" />
+            </div>
+        </div>
+
+        @if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+        {
+            <div class="alert alert-danger">
+                <a class="close" data-dismiss="alert">&times;</a>
+                @Html.ValidationSummary(false)
+            </div>
+        }
+
+        @if (ViewBag.GravadoComSucesso)
+        {
+            <div class="alert alert-success">
+                <a class="close" data-dismiss="alert">&times;</a>
+                <h6>Solicitação de transporte gravada com sucesso.</h6>
+            </div>
+        }
+    </div>
+}
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#adicionar-produto").on("click", function () {
+                var objListaProdutos = $("#lista-produtos");
+
+                var indice = $(".painel-produto-adicionado").length;
+
+                var objProduto = $('<div class="panel panel- body bg-light border painel-produto-adicionado" style="margin-top:10px;">' +
+                    '    <div class="form-group">' +
+                    '        <div class="row" style="margin-top:10px;">' +
+                    '            <div class="col-md-12">' +
+                    '                 <label class="control-label col-md-3">Descrição do Produto</label>' +
+                    '                 <div class="col-md-12">' +
+                    '                     <input type="text" class="form-control" name="Produtos[' + indice + '].DescricaoProduto" />' +
+                    '                 </div>' +
+                    '            </div>' +
+                    '        </div>' +
+                    '        <div class="row" style="margin-top:10px;">' +
+                    '            <div class="col-md-6">' +
+                    '                 <label class="control-label col-md-5">Quantidade (Un.)</label>' +
+                    '                 <div class="col-md-12">' +
+                    '                     <input type="number" class="form-control quantidade-produto" name="Produtos[' + indice + '].Quantidade" />' +
+                    '                 </div>' +
+                    '            </div>' +
+                    '            <div class="col-md-6">' +
+                    '                <label class="control-label col-md-5">Peso (Kg)</label>' +
+                    '                <div class="col-md-12">' +
+                    '                    <input type="number" class="form-control peso-produto" name="Produtos[' + indice + '].Peso" />' +
+                    '                </div>' +
+                    '            </div>' +
+                    '        </div>' +
+                    '        <div class="row" style="margin-top:10px;">' +
+                    '            <div class="col-md-4">' +
+                    '                <label class="control-label col-md-7">Altura (cm)</label>' +
+                    '                <div class="col-md-12">' +
+                    '                    <input type="number" class="form-control altura-produto" name="Produtos[' + indice + '].Altura" />' +
+                    '                </div>' +
+                    '            </div>' +
+                    '            <div class="col-md-4">' +
+                    '                <label class="control-label col-md-7">Largura (cm)</label>' +
+                    '                <div class="col-md-12">' +
+                    '                    <input type="number" class="form-control largura-produto" name="Produtos[' + indice + '].Largura" />' +
+                    '                </div>' +
+                    '            </div>' +
+                    '            <div class="col-md-4">' +
+                    '                <label class="control-label col-md-7">Comprimento (cm)</label>' +
+                    '                <div class="col-md-12">' +
+                    '                    <input type="number" class="form-control comprimento-produto" name="Produtos[' + indice + '].Comprimento" />' +
+                    '                </div>' +
+                    '            </div>' +
+                    '        </div>' +
+                    '        <div class="row" style="margin-top:10px;">' +
+                    '            <div class="col-md-12">' +
+                    '                <div class="col-md-12">' +
+                    '                    <button class="btn btn-danger col-md-12 remove-produto"><i class="fa fa-trash"></i> Remover Produto</button>' +
+                    '                </div>' +
+                    '            </div>' +
+                    '        </div>' +
+                    '    </div>' +
+                    '</div >');
+
+                objListaProdutos.append(objProduto);
+
+                objProduto.find(".remove-produto").on("click", function () {
+                    var objPai = $(this).parents(".painel-produto-adicionado").remove();
+                });
+            });
+
+            $("#simular-frete").on("click", function () {
+                var listaProdutosTela = $(".painel-produto-adicionado");
+                var listaProdutos = [];
+
+                var cidadeDestino = $("#cidade-destino").val();
+                var estadoDestino = $("#estado-destino").val();
+
+                if (listaProdutosTela.length > 0) {
+                    $.each(listaProdutosTela, function (index, data) {
+                        var quantidade = $(data).find(".quantidade-produto");
+                        var peso = $(data).find(".peso-produto");
+                        var altura = $(data).find(".altura-produto");
+                        var largura = $(data).find(".largura-produto");
+                        var comprimento = $(data).find(".comprimento-produto");
+
+                        var objProduto = {
+                            Quantidade: quantidade.val(),
+                            Peso: peso.val(),
+                            Altura: altura.val(),
+                            Largura: largura.val(),
+                            Comprimento: comprimento.val()
+                        };
+
+                        listaProdutos.push(objProduto);
+                    });
+
+                    var objFrete = {
+                        CidadeDestino: cidadeDestino,
+                        UfDestino: estadoDestino,
+                        Produtos: listaProdutos
+                    };
+
+                    $.ajax({
+                        url: '/SolicitacaoTransporte/SimularFrete',
+                        type: 'POST',
+                        dataType: "json",
+                        data: JSON.stringify(objFrete),
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            if (data.Erro) {
+                                alert(data.Mensagem)
+                            } else {
+                                $("#valor-frete").val(data.Valor);
+                            }
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            console.error(xhr);
+                            console.error(ajaxOptions);
+                            console.error(thrownError);
+                        }
+                    });
+                }
+            });
+
+            function limpa_formulário_cep() {
+                $("#rua-destino").val("");
+                $("#bairro-destino").val("");
+                $("#cidade-destino").val("");
+                $("#estado-destino").val("");
+            }
+
+            $("#cep-destino").blur(function () {
+                var cep = $(this).val().replace(/\D/g, '');
+
+                if (cep != "") {
+                    var validacep = /^[0-9]{8}$/;
+
+                    if (validacep.test(cep)) {
+                        $("#rua-destino").val("...");
+                        $("#bairro-destino").val("...");
+                        $("#cidade-destino").val("...");
+                        $("#estado-destino").val("...");
+
+                        $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
+
+                            if (!("erro" in dados)) {
+                                $("#rua-destino").val(dados.logradouro);
+                                $("#bairro-destino").val(dados.bairro);
+                                $("#cidade-destino").val(dados.localidade);
+                                $("#estado-destino").val(dados.uf);
+                            } else {
+                                limpa_formulário_cep();
+                                alert("CEP não encontrado.");
+                            }
+                        });
+                    } else {
+                        limpa_formulário_cep();
+                        alert("Formato de CEP inválido.");
+                    }
+                }
+                else {
+                    limpa_formulário_cep();
+                }
+            });
+        });
+    </script>
+}

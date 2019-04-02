@@ -1,0 +1,12 @@
+C:\Users\paulo.agrippa\source\repos\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\bin\Debug\PucMinas.SistemaControleLogistica.Domain.dll
+C:\Users\paulo.agrippa\source\repos\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\bin\Debug\PucMinas.SistemaControleLogistica.Domain.pdb
+C:\Users\paulo.agrippa\source\repos\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\obj\Debug\PucMinas.SistemaControleLogistica.Domain.csprojResolveAssemblyReference.cache
+C:\Users\paulo.agrippa\source\repos\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\obj\Debug\PucMinas.SistemaControleLogistica.Domain.csproj.CoreCompileInputs.cache
+C:\Users\paulo.agrippa\source\repos\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\obj\Debug\PucMinas.SistemaControleLogistica.Domain.dll
+C:\Users\paulo.agrippa\source\repos\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\obj\Debug\PucMinas.SistemaControleLogistica.Domain.pdb
+C:\temp\ProjetoTCC\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\bin\Debug\PucMinas.SistemaControleLogistica.Domain.dll
+C:\temp\ProjetoTCC\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\bin\Debug\PucMinas.SistemaControleLogistica.Domain.pdb
+C:\temp\ProjetoTCC\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\obj\Debug\PucMinas.SistemaControleLogistica.Domain.csprojResolveAssemblyReference.cache
+C:\temp\ProjetoTCC\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\obj\Debug\PucMinas.SistemaControleLogistica.Domain.csproj.CoreCompileInputs.cache
+C:\temp\ProjetoTCC\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\obj\Debug\PucMinas.SistemaControleLogistica.Domain.dll
+C:\temp\ProjetoTCC\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\obj\Debug\PucMinas.SistemaControleLogistica.Domain.pdb

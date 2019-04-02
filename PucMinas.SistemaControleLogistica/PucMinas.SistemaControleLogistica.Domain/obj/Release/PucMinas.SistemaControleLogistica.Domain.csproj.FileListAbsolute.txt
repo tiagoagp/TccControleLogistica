@@ -1,0 +1,5 @@
+C:\temp\ProjetoTCC\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\bin\Release\PucMinas.SistemaControleLogistica.Domain.dll
+C:\temp\ProjetoTCC\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\bin\Release\PucMinas.SistemaControleLogistica.Domain.pdb
+C:\temp\ProjetoTCC\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\obj\Release\PucMinas.SistemaControleLogistica.Domain.csproj.CoreCompileInputs.cache
+C:\temp\ProjetoTCC\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\obj\Release\PucMinas.SistemaControleLogistica.Domain.dll
+C:\temp\ProjetoTCC\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\obj\Release\PucMinas.SistemaControleLogistica.Domain.pdb
