@@ -117,7 +117,7 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Models
         public DateTime DataEmissaoNF { get; set; }
 
         [DisplayName("Valor do Frete")]
-        [Required(ErrorMessage = "O valor do frete deve ser informado.")]
+        [Required(ErrorMessage = "O valor do frete deve ser simulado antes da gravação.")]
         public double ValorFrete { get; set; }
 
         public StatusSolicitacao Status { get; set; }
