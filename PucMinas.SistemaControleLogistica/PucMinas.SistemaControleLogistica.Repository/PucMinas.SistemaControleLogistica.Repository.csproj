@@ -79,7 +79,6 @@
     <Compile Include="SolicitacaoTransporteRepository.cs" />
     <Compile Include="TabelaFreteRepository.cs" />
     <Compile Include="UsuarioRepository.cs" />
-    <Compile Include="Utilitarios\Utilitarios.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PucMinas.SistemaControleLogistica.Domain\PucMinas.SistemaControleLogistica.Domain.csproj">

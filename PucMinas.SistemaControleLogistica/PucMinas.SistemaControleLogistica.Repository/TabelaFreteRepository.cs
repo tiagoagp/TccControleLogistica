@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Npgsql;
 using PucMinas.SistemaControleLogistica.Domain.Entidades;
+using PucMinas.SistemaControleLogistica.Domain.Utilitarios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace PucMinas.SistemaControleLogistica.Repository
     {
         public TabelaFrete RetornarTabelaFrete()
         {
-            using (NpgsqlConnection pgsqlConnection = new NpgsqlConnection(Utilitarios.Utilitarios.RetornarStringConexao()))
+            using (NpgsqlConnection pgsqlConnection = new NpgsqlConnection(DadosAutenticacao.RetornarStringConexao()))
             {
                 TabelaFrete tabelaFrete = pgsqlConnection.Query<TabelaFrete>("select * from tabelafrete").FirstOrDefault();
                 return tabelaFrete;

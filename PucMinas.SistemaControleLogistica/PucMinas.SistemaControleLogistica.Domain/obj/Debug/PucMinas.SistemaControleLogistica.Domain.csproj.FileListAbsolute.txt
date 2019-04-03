@@ -18,3 +18,4 @@ C:\temp\TccControleLogisticaTeste\PucMinas.SistemaControleLogistica\PucMinas.Sis
 C:\temp\TccControleLogisticaTeste\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\bin\Debug\NLog.config
 C:\temp\TccControleLogisticaTeste\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\bin\Debug\NLog.dll
 C:\temp\TccControleLogisticaTeste\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\bin\Debug\NLog.xml
+C:\temp\TccControleLogisticaTeste\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\obj\Debug\PucMinas.SistemaControleLogistica.Domain.csprojResolveAssemblyReference.cache

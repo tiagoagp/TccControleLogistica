@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Npgsql;
 using PucMinas.SistemaControleLogistica.Domain.Entidades;
+using PucMinas.SistemaControleLogistica.Domain.Utilitarios;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,7 +16,7 @@ namespace PucMinas.SistemaControleLogistica.Repository
         public void InserirNovaSolicitacao(SolicitacaoTransporte entidade)
         {
             
-            using (NpgsqlConnection pgsqlConnection = new NpgsqlConnection(Utilitarios.Utilitarios.RetornarStringConexao()))
+            using (NpgsqlConnection pgsqlConnection = new NpgsqlConnection(DadosAutenticacao.RetornarStringConexao()))
             {
                 pgsqlConnection.Open();
 
@@ -47,7 +48,7 @@ namespace PucMinas.SistemaControleLogistica.Repository
             {
                 int codigoControle = 0;
 
-                using (NpgsqlConnection pgsqlConnection = new NpgsqlConnection(Utilitarios.Utilitarios.RetornarStringConexao()))
+                using (NpgsqlConnection pgsqlConnection = new NpgsqlConnection(DadosAutenticacao.RetornarStringConexao()))
                 {
                     pgsqlConnection.Open();
 

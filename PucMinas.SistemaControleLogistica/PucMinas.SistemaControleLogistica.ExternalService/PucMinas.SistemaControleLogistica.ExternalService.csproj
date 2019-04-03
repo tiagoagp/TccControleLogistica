@@ -67,5 +67,11 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PucMinas.SistemaControleLogistica.Domain\PucMinas.SistemaControleLogistica.Domain.csproj">
+      <Project>{c10fe50e-ef48-41c5-a2ea-281f28225b93}</Project>
+      <Name>PucMinas.SistemaControleLogistica.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
