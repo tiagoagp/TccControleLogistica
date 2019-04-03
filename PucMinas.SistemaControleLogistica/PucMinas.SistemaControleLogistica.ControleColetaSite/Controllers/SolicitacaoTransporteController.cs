@@ -23,7 +23,9 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
         public ActionResult Create()
         {
             ViewBag.GravadoComSucesso = false;
-            return View();
+            
+            SolicitacaoTransporteModel model = new SolicitacaoTransporteModel();
+            return View(model);
         }
 
         [HttpPost]
@@ -95,9 +97,9 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
 
                 API.Request.CheckRequest(response.StatusCode, responseString);
 
-                double.TryParse(responseString.Replace(".", ","), out valor);
+                //double.TryParse(responseString.Replace(".", ","), out valor);
                 
-                return Json(new { Erro = false, Mensagem = "", Valor = valor });
+                return Json(new { Erro = false, Mensagem = "", Valor = responseString.Replace(".", ",") });
             }
             catch (Exception e)
             {

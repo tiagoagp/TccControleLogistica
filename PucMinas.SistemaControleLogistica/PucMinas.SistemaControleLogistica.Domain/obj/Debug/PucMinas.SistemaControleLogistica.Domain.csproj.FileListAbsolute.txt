@@ -10,3 +10,11 @@ C:\temp\ProjetoTCC\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLog
 C:\temp\ProjetoTCC\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\obj\Debug\PucMinas.SistemaControleLogistica.Domain.csproj.CoreCompileInputs.cache
 C:\temp\ProjetoTCC\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\obj\Debug\PucMinas.SistemaControleLogistica.Domain.dll
 C:\temp\ProjetoTCC\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\obj\Debug\PucMinas.SistemaControleLogistica.Domain.pdb
+C:\temp\TccControleLogisticaTeste\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\bin\Debug\PucMinas.SistemaControleLogistica.Domain.dll
+C:\temp\TccControleLogisticaTeste\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\bin\Debug\PucMinas.SistemaControleLogistica.Domain.pdb
+C:\temp\TccControleLogisticaTeste\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\obj\Debug\PucMinas.SistemaControleLogistica.Domain.csproj.CoreCompileInputs.cache
+C:\temp\TccControleLogisticaTeste\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\obj\Debug\PucMinas.SistemaControleLogistica.Domain.dll
+C:\temp\TccControleLogisticaTeste\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\obj\Debug\PucMinas.SistemaControleLogistica.Domain.pdb
+C:\temp\TccControleLogisticaTeste\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\bin\Debug\NLog.config
+C:\temp\TccControleLogisticaTeste\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\bin\Debug\NLog.dll
+C:\temp\TccControleLogisticaTeste\PucMinas.SistemaControleLogistica\PucMinas.SistemaControleLogistica.Domain\bin\Debug\NLog.xml

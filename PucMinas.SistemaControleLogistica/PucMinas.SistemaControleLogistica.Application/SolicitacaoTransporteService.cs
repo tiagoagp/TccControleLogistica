@@ -11,10 +11,13 @@ namespace PucMinas.SistemaControleLogistica.Application
     public class SolicitacaoTransporteService
     {
         private readonly SolicitacaoTransporteRepository solicitacaoTransporteRepository;
+        private readonly TabelaFreteService tabelaFreteService;
 
-        public SolicitacaoTransporteService(SolicitacaoTransporteRepository solicitacaoTransporteRepository)
+        public SolicitacaoTransporteService(SolicitacaoTransporteRepository solicitacaoTransporteRepository,
+                                            TabelaFreteService tabelaFreteService)
         {
             this.solicitacaoTransporteRepository = solicitacaoTransporteRepository;
+            this.tabelaFreteService = tabelaFreteService;
         }
 
         public void CriarSolicitacao(SolicitacaoTransporte entidade)
@@ -23,6 +26,7 @@ namespace PucMinas.SistemaControleLogistica.Application
             {
                 entidade.Id = Guid.NewGuid();
                 entidade.CodigoControle = this.solicitacaoTransporteRepository.RetornarProximoCodigoControle();
+                entidade.ValorFrete = this.tabelaFreteService.CalcularValorFrete(entidade.Produtos, entidade.CidadeDestino, entidade.EstadoDestino);
 
                 foreach (Produto prod in entidade.Produtos)
                 {

@@ -139,7 +139,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DataEmissaoNF, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DataEmissaoNF, new { htmlAttributes = new { @class = "form-control", Placeholder = "Data de Emissão", required = true } })
+                <input type="date" name="DataEmissaoNF" class="form-control" placeholder="Data de Emissão" required />
                 @Html.ValidationMessageFor(model => model.DataEmissaoNF, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -149,7 +149,69 @@
         <h5>Produtos</h5>
         <button type="button" id="adicionar-produto" class="btn btn-primary" style="margin-bottom:10px;"><i class="fas fa-plus"><span style="margin-left:5px;">Produto</span></i></button><i style="margin-left:10px;color:#087BF5;" class="fa fa-info-circle"><span style="color:black; font-size:12px;">  Clique aqui para adicionar produtos</span></i>
 
-        <div id="lista-produtos"></div>
+        @{ 
+            var indiceProd = 0;
+        }
+
+        <div id="lista-produtos">
+            @foreach (var prod in Model.Produtos)
+            {
+                <div class="panel panel- body bg-light border painel-produto-adicionado" style="margin-top:10px;">
+                    <div class="form-group">
+                        <div class="row" style="margin-top:10px;">
+                            <div class="col-md-12">
+                                 <label class="control-label col-md-3">Descrição do Produto</label>
+                                 <div class="col-md-12">
+                                     <input type="text" class="form-control" name="Produtos[@indiceProd].DescricaoProduto" value="@prod.DescricaoProduto"/>
+                                 </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:10px;">
+                            <div class="col-md-6">
+                                 <label class="control-label col-md-5">Quantidade (Un.)</label>
+                                 <div class="col-md-12">
+                                     <input type="number" class="form-control quantidade-produto" name="Produtos[@indiceProd].Quantidade" value="@prod.Quantidade"/>
+                                 </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-label col-md-5">Peso (Kg)</label>
+                                <div class="col-md-12">
+                                    <input type="number" class="form-control peso-produto" name="Produtos[@indiceProd].Peso"  value="@prod.Peso"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:10px;">
+                            <div class="col-md-4">
+                                <label class="control-label col-md-7">Altura (cm)</label>
+                                <div class="col-md-12">
+                                    <input type="number" class="form-control altura-produto" name="Produtos[@indiceProd].Altura"  value="@prod.Altura"/>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="control-label col-md-7">Largura (cm)</label>
+                                <div class="col-md-12">
+                                    <input type="number" class="form-control largura-produto" name="Produtos[@indiceProd].Largura"  value="@prod.Largura"/>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="control-label col-md-7">Comprimento (cm)</label>
+                                <div class="col-md-12">
+                                    <input type="number" class="form-control comprimento-produto" name="Produtos[@indiceProd].Comprimento"  value="@prod.Comprimento"/>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row" style="margin-top:10px;">
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <button class="btn btn-danger col-md-12 remove-produto"><i class="fa fa-trash"></i> Remover Produto</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
 
         <hr />
 
@@ -170,7 +232,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DataEntrega, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DataEntrega, new { htmlAttributes = new { @class = "form-control", Placeholder = "Data Máxima de Entrega", required = true } })
+                <input type="date" name="DataEntrega" class="form-control" placeholder="Data Máxima de Entrega" required />
                 @Html.ValidationMessageFor(model => model.DataEntrega, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -204,6 +266,10 @@
 @section scripts{
     <script type="text/javascript">
         $(document).ready(function () {
+            $(".remove-produto").on("click", function () {
+                var objPai = $(this).parents(".painel-produto-adicionado").remove();
+            });
+
             $("#adicionar-produto").on("click", function () {
                 var objListaProdutos = $("#lista-produtos");
 

@@ -13,7 +13,8 @@ namespace PucMinas.SistemaControleLogistica.Application.Factory
         public static SolicitacaoTransporteService RetornarSolicitacaoTransporteService()
         {
             SolicitacaoTransporteRepository solicitacaoTransporteRepository = new SolicitacaoTransporteRepository();
-            return new SolicitacaoTransporteService(solicitacaoTransporteRepository);
+            TabelaFreteService tabelaFreteService = RetornarTabelaFreteService();
+            return new SolicitacaoTransporteService(solicitacaoTransporteRepository, tabelaFreteService);
         }
 
         public static UsuarioService RetornarUsuarioService()
