@@ -96,6 +96,8 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Models
         [Required(ErrorMessage = "A data máxima de entrega deve ser informada.")]
         public DateTime DataEntrega { get; set; }
 
+        public string DataEntregaTexto { get; set; }
+
         [DisplayName("Número")]
         [StringLength(100, ErrorMessage = "O número da NF deve ter no máximo 100 caracteres.")]
         [Required(ErrorMessage = "O número da NF deve ser informado.")]

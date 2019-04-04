@@ -1,0 +1,344 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@section Breadcrumbs{
+    <li class="breadcrumb-item"><a href="/home/index">Home</a></li>
+    <li class="breadcrumb-item active"><a href="#">Solicitação de Coleta de Produtos em Clientes</a></li>
+}
+
+<h2>Solicitação de Coleta em Clientes</h2>
+<hr>
+
+<div class="form-horizontal">
+    <h5>Filtros</h5>
+
+    <hr />
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-6">
+                <label class="control-label col-md-12" style="font-weight:bold;">Data Entrega Inicial:</label>
+                <div class="col-md-10">
+                    <input type="date" class="form-control" id="data-inicial-entrega" />
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label class="control-label col-md-12" style="font-weight:bold;">Data Entrega Final:</label>
+                <div class="col-md-10">
+                    <input type="date" class="form-control" id="data-final-entrega" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button id="atualizar-lista-coletas" type="button" class="btn btn-primary col-sm-12 col-md-3 col-lg-3" style="margin-bottom:16px;"><i class="fa fa-sync-alt"> Atualizar Lista de Coletas</i></button>
+
+    <hr />
+
+    <h5>Solicitações de Transporte</h5>
+
+    <div id="painel-geral">
+        <div class="panel panel-body bg-light border painel-solicitacao">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="row">
+                        <input type="hidden" class="id-solicitacao" />
+
+                        <div class="col-md-5">
+                            <label class="control-label col-md-7" style="font-weight:bold;">Cidade de destino:</label>
+                            <div class="col-md-10">
+                                <label>Caxias do Sul</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="control-label col-md-10" style="font-weight:bold;">Estado de destino:</label>
+                            <div class="col-md-10">
+                                <label>RS</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="control-label col-md-12" style="font-weight:bold;">Data Máxima de Entrega:</label>
+                            <div class="col-md-10">
+                                <label>10/05/2018</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-primary col-md-12" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"><i class="fa fa-cube exibir-produtos-coleta"> Detalhes</i></button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col">
+                        <div class="collapse multi-collapse" id="multiCollapseExample1">
+                            <div class="card card-body">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <label class="control-label col-md-2" style="font-weight:bold;">Cliente:</label>
+                                        <div class="col-md-10">
+                                            <label>Cliente Teste Ltda. Cliente Teste Ltda. Cliente Teste Ltda. Cliente Teste</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <label class="control-label col-md-12" style="font-weight:bold;">Status:</label>
+                                        <div class="col-md-10">
+                                            <label>Coleta Pendente</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <label class="control-label col-md-5" style="font-weight:bold;">Veículo:</label>
+                                        <div class="col-md-10">
+                                            <select class="col-md-12 selecao-veiculo"></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5">
+                                        <label class="control-label col-md-12" style="font-weight:bold;">Motorista:</label>
+                                        <div class="col-md-10">
+                                            <select class="col-md-12 selecao-motorista"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="margin-top:10px;">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-primary col-md-12 solicitar-coleta"><i class="fa fa-cube exibir-produtos-coleta"> Solicitar Coleta</i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+
+        function RetornarTextoStatus(status) {
+            if (status == 0) {
+                return "Pendente de coleta no cliente";
+            }
+        }
+
+        function AtualizarListaSolicitacoes() {
+            var dataInicial = $("#data-inicial-entrega").val();
+            var dataFinal = $("#data-final-entrega").val();
+
+            $.ajax({
+                url: '/SolicitacaoColeta/AtualizarListaSolicitacoes',
+                type: 'GET',
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                data: { dataInicial: dataInicial, dataFinal: dataFinal },
+                success: function (lista) {
+                    var painelGeral = $("#painel-geral");
+
+                    painelGeral.children().remove();
+
+                    $.each(lista, function (index, data) {
+                        var painelSolicitacao = $('<div class="panel panel-body bg-light border painel-solicitacao" style="margin-top:15px;">' +
+                            '    <div class="form-horizontal">' +
+                            '        <div class="form-group">' +
+                            '            <div class="row">' +
+                            '                <input type="hidden" class="id-solicitacao" value="' + data.Id + '"/>' +
+                            '                <div class="col-md-5">' +
+                            '                    <label class="control-label col-md-7" style="font-weight:bold;">Cidade de destino:</label>' +
+                            '                    <div class="col-md-10">' +
+                            '                        <label>' + data.CidadeDestino + '</label>' +
+                            '                    </div>' +
+                            '                </div>' +
+                            '                <div class="col-md-3">' +
+                            '                    <label class="control-label col-md-10" style="font-weight:bold;">Estado de destino:</label>' +
+                            '                    <div class="col-md-10">' +
+                            '                        <label>' + data.EstadoDestino + '</label>' +
+                            '                    </div>' +
+                            '                </div>' +
+                            '                <div class="col-md-3">' +
+                            '                    <label class="control-label col-md-12" style="font-weight:bold;">Data Máxima de Entrega:</label>' +
+                            '                    <div class="col-md-10">' +
+                            '                        <label>' + data.DataEntregaTexto + '</label>' +
+                            '                    </div>' +
+                            '                </div>' +
+                            '            </div>' +
+                            '        </div>' +
+                            '        <div class="form-group">' +
+                            '            <div class="col-md-12">' +
+                            '                <button type="button" class="btn btn-primary col-md-12" data-toggle="collapse" href="#multiCollapseExample' + index + '" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"><i class="fa fa-cube exibir-produtos-coleta"> Detalhes</i></button>' +
+                            '            </div>' +
+                            '        </div>' +
+                            '        <div class="form-group">' +
+                            '            <div class="col">' +
+                            '                <div class="collapse multi-collapse" id="multiCollapseExample' + index + '">' +
+                            '                    <div class="card card-body">' +
+                            '                        <div class="row">' +
+                            '                            <div class="col-md-7">' +
+                            '                                <label class="control-label col-md-2" style="font-weight:bold;">Cliente:</label>' +
+                            '                                <div class="col-md-10">' +
+                            '                                    <label>' + data.Usuario.NomeUsuario + '</label>' +
+                            '                                </div>' +
+                            '                            </div>' +
+                            '                            <div class="col-md-5">' +
+                            '                                <label class="control-label col-md-12" style="font-weight:bold;">Status:</label>' +
+                            '                                <div class="col-md-10">' +
+                            '                                    <label>' + RetornarTextoStatus(data.Status) + '</label>' +
+                            '                                </div>' +
+                            '                            </div>' +
+                            '                        </div>' +
+                            '                        <div class="row">' +
+                            '                            <div class="col-md-7">' +
+                            '                                <label class="control-label col-md-5" style="font-weight:bold;">Veículo:</label>' +
+                            '                                <div class="col-md-10">' +
+                            '                                    <select class="col-md-12 selecao-veiculo"></select>' +
+                            '                                </div>' +
+                            '                            </div>' +
+                            '                            <div class="col-md-5">' +
+                            '                                <label class="control-label col-md-12" style="font-weight:bold;">Motorista:</label>' +
+                            '                                <div class="col-md-10">' +
+                            '                                    <select class="col-md-12 selecao-motorista"></select>' +
+                            '                                </div>' +
+                            '                            </div>' +
+                            '                        </div>' +
+                            '                        <div class="form-group" style="margin-top:10px;">' +
+                            '                            <div class="col-md-12">' +
+                            '                                <button type="button" class="btn btn-primary col-md-12 solicitar-coleta"><i class="fa fa-cube exibir-produtos-coleta"> Solicitar Coleta</i></button>' +
+                            '                            </div>' +
+                            '                        </div>' +
+                            '                    </div>' +
+                            '                </div>' +
+                            '            </div>' +
+                            '        </div>' +
+                            '    </div>' +
+                            '</div>');
+
+                        painelGeral.append(painelSolicitacao);
+                    });
+
+                    $('.selecao-veiculo').select2({
+                        theme: 'bootstrap'
+                    });
+
+                    var listaVeiculos = [];
+
+                    $.ajax({
+                        url: '/SolicitacaoColeta/RetornarVeiculosDisponiveis',
+                        type: 'GET',
+                        dataType: "json",
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            var resultados = [];
+
+                            listaVeiculos.push({ id: "", text: "" });
+
+                            $.each(data, function (index, item) {
+                                listaVeiculos.push({
+                                    id: item.Placa,
+                                    text: item.Placa + " - " + item.Modelo
+                                });
+                            });
+
+                            $('.selecao-veiculo').select2({
+                                data: listaVeiculos,
+                                theme: 'bootstrap'
+                            });
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            console.error(xhr);
+                            console.error(ajaxOptions);
+                            console.error(thrownError);
+                        }
+                    });
+
+                    $('.selecao-motorista').select2({
+                        theme: 'bootstrap'
+                    });
+
+                    var listaMotoristas = [];
+
+                    $.ajax({
+                        url: '/SolicitacaoColeta/RetornarMotoristasDisponiveis',
+                        type: 'GET',
+                        dataType: "json",
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            var resultados = [];
+
+                            listaMotoristas.push({ id: "", text: "" });
+
+                            $.each(data, function (index, item) {
+                                listaMotoristas.push({
+                                    id: item.RegistroFuncionario,
+                                    text: item.Nome
+                                });
+                            });
+
+                            $('.selecao-motorista').select2({
+                                data: listaMotoristas,
+                                theme: 'bootstrap'
+                            });
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            console.error(xhr);
+                            console.error(ajaxOptions);
+                            console.error(thrownError);
+                        }
+                    });
+
+                    $(".solicitar-coleta").on("click", function () {
+                        SolicitarColeta($(this));
+                    });
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.error(xhr);
+                    console.error(ajaxOptions);
+                    console.error(thrownError);
+                }
+            });
+        }
+
+        function SolicitarColeta(botaoEvento) {
+            var painelSolicitacoes = botaoEvento.parents(".painel-solicitacao");
+
+            var idSolicitacao = painelSolicitacoes.find(".id-solicitacao");
+            var selecaoVeiculo = painelSolicitacoes.find(".selecao-veiculo");
+            var selecaoMotorista = painelSolicitacoes.find(".selecao-motorista");
+
+            var objColeta = { idSolicitacao: idSolicitacao.val(), placaVeiculo: selecaoVeiculo.val(), registroFuncionario: selecaoMotorista.val() };
+
+            $.ajax({
+                url: '/SolicitacaoColeta/SolicitarColeta',
+                type: 'GET',
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                data: objColeta,
+                success: function (data) {
+                    alert(data.Mensagem)
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.error(xhr);
+                    console.error(ajaxOptions);
+                    console.error(thrownError);
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $("#atualizar-lista-coletas").on("click", function () {
+                AtualizarListaSolicitacoes();
+            });
+        });
+    </script>
+}

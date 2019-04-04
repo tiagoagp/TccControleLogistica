@@ -13,6 +13,8 @@
     <link href="~/ArquivosProjeto/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="~/ArquivosProjeto/css/sb-admin.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet" />
 </head>
 <body id="page-top">
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
@@ -39,7 +41,7 @@
                     <i class="fas fa-user-circle fa-fw"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="/login/logout" >Logout</a>
+                    <a class="dropdown-item" href="/login/logout">Logout</a>
                 </div>
             </li>
         </ul>
@@ -51,6 +53,12 @@
                 <a class="nav-link" href="/solicitacaotransporte/create">
                     <i class="fas fa-truck"></i>
                     <span>Solicitação Transporte</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/solicitacaocoleta/index">
+                    <i class="fas fa-truck"></i>
+                    <span>Coleta em Cliente</span>
                 </a>
             </li>
         </ul>
@@ -108,6 +116,7 @@
     <script src="~/ArquivosProjeto/vendor/jquery-easing/jquery.easing.min.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="~/ArquivosProjeto/js/sb-admin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
