@@ -36,11 +36,11 @@
             @{
                 var statusTexto = "";
 
-                if(solic.Status == StatusSolicitacao.Pendente)
+                if(solic.Status == PucMinas.SistemaControleLogistica.ControleColetaSite.Enumeradores.StatusSolicitacao.Pendente)
                 {
                     statusTexto = "Pendente de coleta no cliente";
                 }
-                else if (solic.Status == StatusSolicitacao.Pendente)
+                else if (solic.Status == PucMinas.SistemaControleLogistica.ControleColetaSite.Enumeradores.StatusSolicitacao.ColetaEmAndamento)
                 {
                     statusTexto = "Coleta em andamento";
                 }
@@ -48,7 +48,7 @@
 
             <td>@statusTexto</td>
             <td>
-                <button class="btn btn-success"><i class="fa fa-edit"></i></button>
+                <a class="btn btn-success" href="/SolicitacaoTransporte/Edit?id=@solic.Id"><i class="fa fa-edit"></i></a>
             </td>
         </tr>
         }

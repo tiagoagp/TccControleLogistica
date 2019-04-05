@@ -45,6 +45,29 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
             return View(model);
         }
 
+        public ActionResult Edit(Guid id)
+        {
+            ViewBag.GravadoComSucesso = false;
+
+            DadosUsuarioAutenticado dados = (DadosUsuarioAutenticado)Session["usuario"];
+            var token = dados.Token;
+
+            var client = new HttpClient { Timeout = new TimeSpan(0, 5, 0) };
+
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+
+            var response = client.GetAsync($"{UrlApi.RetornarUrlWebApi()}api/SolicitacaoTransporte?id={id}", new CancellationToken()).Result;
+
+            var responseString = response.Content.ReadAsStringAsync().Result;
+
+            API.Request.CheckRequest(response.StatusCode, responseString);
+
+            SolicitacaoTransporteModel model = JsonConvert.DeserializeObject<SolicitacaoTransporteModel>(responseString);
+
+            return View("Create", model);
+        }
+
         [HttpPost]
         public ActionResult Inserir(SolicitacaoTransporteModel model)
         {
