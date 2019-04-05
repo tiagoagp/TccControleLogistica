@@ -32,7 +32,21 @@
             <td>@Html.DisplayFor(modelItem => solic.Usuario.NomeUsuario)</td>
             <td>@Html.DisplayFor(modelItem => solic.CidadeDestino)</td>
             <td>@Html.DisplayFor(modelItem => solic.EstadoDestino)</td>
-            <td>@Html.DisplayFor(modelItem => solic.StatusTexto)</td>
+
+            @{
+                var statusTexto = "";
+
+                if(solic.Status == StatusSolicitacao.Pendente)
+                {
+                    statusTexto = "Pendente de coleta no cliente";
+                }
+                else if (solic.Status == StatusSolicitacao.Pendente)
+                {
+                    statusTexto = "Coleta em andamento";
+                }
+            }
+
+            <td>@statusTexto</td>
             <td>
                 <button class="btn btn-success"><i class="fa fa-edit"></i></button>
             </td>

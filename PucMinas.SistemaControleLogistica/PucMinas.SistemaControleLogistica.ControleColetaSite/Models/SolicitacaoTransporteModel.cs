@@ -122,22 +122,5 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Models
         public double ValorFrete { get; set; }
 
         public StatusSolicitacao Status { get; set; }
-
-        public string StatusTexto
-        {
-            get
-            {
-                if(this.Status == StatusSolicitacao.Pendente)
-                {
-                    return "Pendente de coleta no cliente";
-                }
-                else if (this.Status == StatusSolicitacao.Pendente)
-                {
-                    return "Coleta em andamento";
-                }
-
-                return string.Empty;
-            }
-        }
     }
 }

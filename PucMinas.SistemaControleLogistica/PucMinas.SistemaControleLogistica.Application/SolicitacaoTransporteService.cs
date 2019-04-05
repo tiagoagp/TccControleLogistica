@@ -42,11 +42,11 @@ namespace PucMinas.SistemaControleLogistica.Application
             }
         }
 
-        public List<SolicitacaoTransporte> RetornarSolicitacoes(DateTime dataInicial, DateTime dataFinal)
+        public List<SolicitacaoTransporte> RetornarSolicitacoes(DateTime dataInicial, DateTime dataFinal, Guid idCliente)
         {
             try
             {
-                return this.solicitacaoTransporteRepository.RetornarSolicitacoes(dataInicial, dataFinal);
+                return this.solicitacaoTransporteRepository.RetornarSolicitacoes(dataInicial, dataFinal, idCliente);
             }
             catch (Exception e)
             {

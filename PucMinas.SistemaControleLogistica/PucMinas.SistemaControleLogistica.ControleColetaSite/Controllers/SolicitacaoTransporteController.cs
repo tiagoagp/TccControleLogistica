@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
 {
-    [Authorize(Roles = "Cliente")]
+    //[Authorize(Roles = "Cliente")]
     public class SolicitacaoTransporteController : Controller
     {
         // GET: SolicitacaoTransporte
@@ -26,10 +26,8 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
             
-            var response = client.GetAsync($"{UrlApi.RetornarUrlWebApi()}api/SolicitacaoTransporte/Listar/{DateTime.MinValue}/{DateTime.MinValue}", new CancellationToken()).Result;
-
-            // var response = client.GetAsync($"{UrlApi.RetornarUrlWebApi()}api/SolicitacaoTransporte/Listar?dataInicial={new DateTime(175,1,1)}&dataFinal={new DateTime(175, 1, 1)}&idCliente={dados.UsuarioId}", new CancellationToken()).Result;
-
+            var response = client.GetAsync($"{UrlApi.RetornarUrlWebApi()}api/ListaSolicitacoes?dataInicial={DateTime.MinValue}&dataFinal={DateTime.MinValue}&idCliente={dados.UsuarioId}", new CancellationToken()).Result;
+            
             var responseString = response.Content.ReadAsStringAsync().Result;
 
             API.Request.CheckRequest(response.StatusCode, responseString);

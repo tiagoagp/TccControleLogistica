@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
 {
-    [Authorize(Roles = "Transportadora")]
+    //[Authorize(Roles = "Transportadora")]
     public class SolicitacaoColetaController : Controller
     {
         // GET: SolicitacaoColeta
@@ -68,12 +68,6 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
         {
             try
             {
-                DateTime dataIni;
-                DateTime.TryParse(dataInicial, out dataIni);
-
-                DateTime dataFim;
-                DateTime.TryParse(dataFinal, out dataFim);
-
                 DadosUsuarioAutenticado dados = (DadosUsuarioAutenticado)Session["usuario"];
                 var token = dados.Token;
 
@@ -82,7 +76,7 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
 
-                var response = client.GetAsync($"{UrlApi.RetornarUrlWebApi()}api/SolicitacaoTransporte/Listar/{dataIni}/{dataFim}", new CancellationToken()).Result;
+                var response = client.GetAsync($"{UrlApi.RetornarUrlWebApi()}api/ListaSolicitacoes?dataInicial={dataInicial}&dataFinal={dataFinal}&idCliente={Guid.Empty}", new CancellationToken()).Result;
 
                 var responseString = response.Content.ReadAsStringAsync().Result;
 
