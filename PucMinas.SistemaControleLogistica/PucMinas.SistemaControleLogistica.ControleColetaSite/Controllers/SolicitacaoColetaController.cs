@@ -1,7 +1,12 @@
-﻿using PucMinas.SistemaControleLogistica.ControleColetaSite.Models;
+﻿using Newtonsoft.Json;
+using PucMinas.SistemaControleLogistica.ControleColetaSite.API;
+using PucMinas.SistemaControleLogistica.ControleColetaSite.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -20,13 +25,13 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
         {
             try
             {
-                List<Veiculo> lista = new List<Veiculo>();
+                var client = new HttpClient { Timeout = new TimeSpan(0, 5, 0) };
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
 
-                lista.Add(new Veiculo() { Placa = "IPX4456", Modelo = "Ford Ranger" });
-                lista.Add(new Veiculo() { Placa = "SSK7848", Modelo = "Picape Sei Lá" });
-                lista.Add(new Veiculo() { Placa = "IPT9902", Modelo = "XSaara Pixasso" });
-                lista.Add(new Veiculo() { Placa = "RSR1123", Modelo = "Ford Fiesta" });
-                lista.Add(new Veiculo() { Placa = "LLT7876", Modelo = "Honda Civis" });
+                var response = client.GetAsync($"{UrlApi.RetornarUrlWebApiGestaoFrotas()}api/Veiculo", new CancellationToken()).Result;
+                var responseString = response.Content.ReadAsStringAsync().Result;
+
+                List<Veiculo> lista = JsonConvert.DeserializeObject<List<Veiculo>>(responseString);
 
                 return Json(lista, JsonRequestBehavior.AllowGet);
             }
@@ -41,12 +46,13 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
         {
             try
             {
-                List<Motorista> lista = new List<Motorista>();
+                var client = new HttpClient { Timeout = new TimeSpan(0, 5, 0) };
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
 
-                lista.Add(new Motorista() { Nome = "João Paulo", RegistroFuncionario = "RX224" });
-                lista.Add(new Motorista() { Nome = "Pedro Albuquerque", RegistroFuncionario = "RT456" });
-                lista.Add(new Motorista() { Nome = "Jose Farias", RegistroFuncionario = "RJ212" });
-                lista.Add(new Motorista() { Nome = "Soares Mendonça", RegistroFuncionario = "JR295" });
+                var response = client.GetAsync($"{UrlApi.RetornarUrlWebApiGestaoFrotas()}api/Motorista", new CancellationToken()).Result;
+                var responseString = response.Content.ReadAsStringAsync().Result;
+
+                List<Motorista> lista = JsonConvert.DeserializeObject<List<Motorista>>(responseString);
 
                 return Json(lista, JsonRequestBehavior.AllowGet);
             }
@@ -61,11 +67,27 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
         {
             try
             {
-                List<SolicitacaoTransporteModel> lista = new List<SolicitacaoTransporteModel>();
+                DateTime dataIni;
+                DateTime.TryParse(dataInicial, out dataIni);
 
-                lista.Add(new SolicitacaoTransporteModel() { Id = Guid.NewGuid(), CidadeDestino = "Caxias do Sul", EstadoDestino = "RS", DataEntregaTexto = "10/08/2019", Usuario = new UsuarioModel() { NomeUsuario = "Empresa Teste 1" } });
-                lista.Add(new SolicitacaoTransporteModel() { Id = Guid.NewGuid(), CidadeDestino = "Flores da Cunha", EstadoDestino = "RS", DataEntregaTexto = "15/09/2021", Usuario = new UsuarioModel() { NomeUsuario = "Empresa Teste 2" } });
-                lista.Add(new SolicitacaoTransporteModel() { Id = Guid.NewGuid(), CidadeDestino = "São Paulo", EstadoDestino = "SP", DataEntregaTexto = "04/03/2021", Usuario = new UsuarioModel() { NomeUsuario = "Empresa Teste 3" } });
+                DateTime dataFim;
+                DateTime.TryParse(dataFinal, out dataFim);
+
+                DadosUsuarioAutenticado dados = (DadosUsuarioAutenticado)Session["usuario"];
+                var token = dados.Token;
+
+                var client = new HttpClient { Timeout = new TimeSpan(0, 5, 0) };
+
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+
+                var response = client.GetAsync($"{UrlApi.RetornarUrlWebApi()}api/SolicitacaoTransporte?dataInicial={dataIni}&dataFinal={dataFim}", new CancellationToken()).Result;
+
+                var responseString = response.Content.ReadAsStringAsync().Result;
+
+                API.Request.CheckRequest(response.StatusCode, responseString);
+
+                List<SolicitacaoTransporteModel> lista = JsonConvert.DeserializeObject<List<SolicitacaoTransporteModel>>(responseString);
 
                 return Json(lista, JsonRequestBehavior.AllowGet);
             }
@@ -76,10 +98,31 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
         }
 
         [HttpGet]
-        public ActionResult SolicitarColeta(Guid idSolicitacao, string placaVeiculo, string registroFuncionario)
+        public ActionResult SolicitarColeta(Guid idSolicitacao, string placaVeiculo, string registroMotorista)
         {
             try
             {
+                DadosUsuarioAutenticado dados = (DadosUsuarioAutenticado)Session["usuario"];
+                var token = dados.Token;
+
+                var client = new HttpClient { Timeout = new TimeSpan(0, 5, 0) };
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+
+                SolicitacaoColetaModel model = new SolicitacaoColetaModel()
+                {
+                    IdSolicitacaoTransporte = idSolicitacao,
+                    PlacaVeiculo = placaVeiculo,
+                    RegistroMotorista = registroMotorista
+                };
+
+                var serializeContent = JsonConvert.SerializeObject(model);
+                HttpContent content = new StringContent(serializeContent, Encoding.UTF8, "application/json");
+                var response = client.PostAsync($"{UrlApi.RetornarUrlWebApi()}api/SolicitacaoColeta", content, new CancellationToken()).Result;
+                var responseString = response.Content.ReadAsStringAsync().Result;
+
+                API.Request.CheckRequest(response.StatusCode, responseString);
+
                 return Json(new { Erro = false, Mensagem = ""}, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)

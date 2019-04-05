@@ -180,6 +180,7 @@
     <Compile Include="Models\FreteModel.cs" />
     <Compile Include="Models\Motorista.cs" />
     <Compile Include="Models\ProdutoModel.cs" />
+    <Compile Include="Models\SolicitacaoColetaModel.cs" />
     <Compile Include="Models\SolicitacaoTransporteModel.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Models\Veiculo.cs" />

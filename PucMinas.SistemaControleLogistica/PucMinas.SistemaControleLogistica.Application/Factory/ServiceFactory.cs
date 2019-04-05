@@ -23,6 +23,12 @@ namespace PucMinas.SistemaControleLogistica.Application.Factory
             return new UsuarioService(usuarioRepository);
         }
 
+        public static SolicitacaoColetaService RetornarSolicitacaoColetaService()
+        {
+            SolicitacaoColetaRepository solicitacaoColetaRepository = new SolicitacaoColetaRepository();
+            return new SolicitacaoColetaService(solicitacaoColetaRepository);
+        }
+
         public static TabelaFreteService RetornarTabelaFreteService()
         {
             ApiGoogleExternalService apiGoogleExternalService = new ApiGoogleExternalService();

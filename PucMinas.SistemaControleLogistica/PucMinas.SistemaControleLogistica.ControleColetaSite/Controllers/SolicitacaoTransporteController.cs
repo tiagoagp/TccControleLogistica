@@ -96,8 +96,6 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
                 var responseString = response.Content.ReadAsStringAsync().Result;
 
                 API.Request.CheckRequest(response.StatusCode, responseString);
-
-                //double.TryParse(responseString.Replace(".", ","), out valor);
                 
                 return Json(new { Erro = false, Mensagem = "", Valor = responseString.Replace(".", ",") });
             }

@@ -11,5 +11,10 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.API
         {
             return "http://localhost:53714/";
         }
+
+        public static string RetornarUrlWebApiGestaoFrotas()
+        {
+            return "http://localhost:55193/";
+        }
     }
 }

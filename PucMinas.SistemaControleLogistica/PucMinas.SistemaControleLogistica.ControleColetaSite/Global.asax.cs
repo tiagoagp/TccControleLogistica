@@ -17,5 +17,13 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        protected void Session_End(object sender, EventArgs e)
+        {
+            var ctx = Request.GetOwinContext();
+            var authManager = ctx.Authentication;
+
+            authManager.SignOut("ApplicationCookie");
+        }
     }
 }

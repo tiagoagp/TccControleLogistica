@@ -54,5 +54,6 @@ namespace PucMinas.SistemaControleLogistica.WebApi.Models
         public DateTime DataEmissaoNF { get; set; }
         public double ValorFrete { get; set; }
         public StatusSolicitacao Status { get; set; }
+        public string DataEntregaTexto { get; internal set; }
     }
 }

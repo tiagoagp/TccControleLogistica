@@ -52,11 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiGoogleExternalService.cs" />
-    <Compile Include="GestaoFaturamentoExternalService.cs" />
-    <Compile Include="Model\FaturamentoModel.cs" />
-    <Compile Include="Model\VeiculoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GestaoFrotaExternalService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="NLog.config">

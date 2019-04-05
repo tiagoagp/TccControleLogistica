@@ -211,9 +211,8 @@
     <Compile Include="Auth\ProviderAccessToken.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SimuladorFreteController.cs" />
+    <Compile Include="Controllers\SolicitacaoColetaController.cs" />
     <Compile Include="Controllers\SolicitacaoTransporteController.cs" />
-    <Compile Include="Controllers\StatusSolicitacaoController.cs" />
-    <Compile Include="Controllers\TabelaFreteController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -222,6 +221,7 @@
     <Compile Include="Models\AtualizacaoStatusSolicitacaoModel.cs" />
     <Compile Include="Models\FreteModel.cs" />
     <Compile Include="Models\ProdutoModel.cs" />
+    <Compile Include="Models\SolicitacaoColetaModel.cs" />
     <Compile Include="Models\SolicitacaoTransporteModel.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="OrganizacaoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SolicitacaoColetaRepository.cs" />
     <Compile Include="SolicitacaoTransporteRepository.cs" />
     <Compile Include="TabelaFreteRepository.cs" />
     <Compile Include="UsuarioRepository.cs" />

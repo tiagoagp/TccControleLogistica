@@ -42,14 +42,16 @@ namespace PucMinas.SistemaControleLogistica.Application
             }
         }
 
-        public void VincularVeiculoEmSolicitacao()
+        public List<SolicitacaoTransporte> RetornarSolicitacoes(DateTime dataInicial, DateTime dataFinal)
         {
-            // Vincular veiculo na solicitação
-        }
-
-        public void FaturarSolicitacao(SolicitacaoTransporte solicitacao)
-        {
-            // solicitar faturamento da solicitação
+            try
+            {
+                return this.solicitacaoTransporteRepository.RetornarSolicitacoes(dataInicial, dataFinal);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

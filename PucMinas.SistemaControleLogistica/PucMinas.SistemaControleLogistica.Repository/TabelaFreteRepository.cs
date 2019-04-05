@@ -20,6 +20,5 @@ namespace PucMinas.SistemaControleLogistica.Repository
                 return tabelaFrete;
             }
         }
-
     }
 }

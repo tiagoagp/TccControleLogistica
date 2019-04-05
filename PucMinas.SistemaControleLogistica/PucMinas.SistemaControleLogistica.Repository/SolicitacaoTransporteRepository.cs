@@ -70,5 +70,44 @@ namespace PucMinas.SistemaControleLogistica.Repository
                 throw e;
             }
         }
+
+        public List<SolicitacaoTransporte> RetornarSolicitacoes(DateTime dataInicial, DateTime dataFinal)
+        {
+            using (NpgsqlConnection pgsqlConnection = new NpgsqlConnection(DadosAutenticacao.RetornarStringConexao()))
+            {
+                string queryTexto = "";
+                var dynamicParameters = new DynamicParameters();
+
+                if (dataInicial != DateTime.MinValue)
+                {
+                    queryTexto = " where dataentrega >= @dataentrega1";
+                    dynamicParameters.Add("dataentrega1", dataInicial);
+                }
+
+                if (dataFinal != DateTime.MinValue)
+                {
+                    if (string.IsNullOrEmpty(queryTexto))
+                    {
+                        queryTexto += " where ";
+                    }
+                    else
+                    {
+                        queryTexto += " and ";
+                    }
+
+                    queryTexto += " dataentrega <= @dataentrega2";
+                    dynamicParameters.Add("dataentrega2", dataFinal);
+                }
+
+                List<SolicitacaoTransporte> lista = pgsqlConnection.Query<SolicitacaoTransporte>("SELECT * FROM solicitacaotransporte" + queryTexto, dynamicParameters).AsList();
+
+                foreach (SolicitacaoTransporte solic in lista)
+                {
+                    solic.Usuario = pgsqlConnection.Query<Usuario>("SELECT * FROM usuario WHERE Id = @Id", new { Id = solic.UsuarioId }).FirstOrDefault();
+                }
+
+                return lista;
+            }
+        }
     }
 }
