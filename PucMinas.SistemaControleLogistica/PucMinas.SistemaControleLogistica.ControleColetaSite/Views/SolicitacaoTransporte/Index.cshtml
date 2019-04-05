@@ -1,7 +1,50 @@
-﻿
+﻿@model IEnumerable<PucMinas.SistemaControleLogistica.ControleColetaSite.Models.SolicitacaoTransporteModel>
+
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
 
+@section Breadcrumbs{
+    <li class="breadcrumb-item"><a href="/home/index">Home</a></li>
+    <li class="breadcrumb-item active"><a href="#">Lista de Solicitações de Transporte</a></li>
+}
+
+<h2>Solicitações de Transporte</h2>
+
+<hr />
+
+<table id="tabela-solicitacoes" class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Data Entrega</th>
+            <th>Cliente</th>
+            <th>Cidade</th>
+            <th>Estado</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var solic in Model) {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => solic.DataEntregaTexto)</td>
+            <td>@Html.DisplayFor(modelItem => solic.Usuario.NomeUsuario)</td>
+            <td>@Html.DisplayFor(modelItem => solic.CidadeDestino)</td>
+            <td>@Html.DisplayFor(modelItem => solic.EstadoDestino)</td>
+            <td>@Html.DisplayFor(modelItem => solic.StatusTexto)</td>
+            <td>
+                <button class="btn btn-success"><i class="fa fa-edit"></i></button>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        });
+    </script>
+}
