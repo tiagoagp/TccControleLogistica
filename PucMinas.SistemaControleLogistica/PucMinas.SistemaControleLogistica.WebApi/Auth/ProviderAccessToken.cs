@@ -31,6 +31,16 @@ namespace PucMinas.SistemaControleLogistica.WebApi.Auth
                 var identity = new ClaimsIdentity(context.Options.AuthenticationType);
                 identity.AddClaim(new Claim("sub", idUsuario.ToString()));
 
+                if (usuario.Tipo == TipoUsuario.Cliente)
+                {
+                    identity.AddClaim(new Claim(ClaimTypes.Role, "Cliente"));
+                }
+
+                if (usuario.Tipo == TipoUsuario.Transportadora)
+                {
+                    identity.AddClaim(new Claim(ClaimTypes.Role, "Transportadora"));
+                }
+
                 context.Validated(identity);
             }
             else

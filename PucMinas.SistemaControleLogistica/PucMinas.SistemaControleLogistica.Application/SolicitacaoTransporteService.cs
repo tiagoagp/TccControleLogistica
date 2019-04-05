@@ -53,5 +53,17 @@ namespace PucMinas.SistemaControleLogistica.Application
                 throw e;
             }
         }
+
+        public SolicitacaoTransporte RetornarSolicitacaoPorId(Guid id)
+        {
+            try
+            {
+                return this.solicitacaoTransporteRepository.RetornarSolicitacaoPorId(id);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }

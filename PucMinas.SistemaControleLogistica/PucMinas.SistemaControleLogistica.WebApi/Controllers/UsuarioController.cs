@@ -14,6 +14,7 @@ namespace PucMinas.SistemaControleLogistica.WebApi.Controllers
 {
     public class UsuarioController : ApiController
     {
+        [Authorize(Roles = "Cliente, Transportadora")]
         [HttpGet]
         public HttpResponseMessage Get()
         {

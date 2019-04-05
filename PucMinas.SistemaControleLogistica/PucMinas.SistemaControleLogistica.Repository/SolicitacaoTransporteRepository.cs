@@ -71,7 +71,62 @@ namespace PucMinas.SistemaControleLogistica.Repository
             }
         }
 
+        public SolicitacaoTransporte RetornarSolicitacaoPorId(Guid id)
+        {
+            using (NpgsqlConnection pgsqlConnection = new NpgsqlConnection(DadosAutenticacao.RetornarStringConexao()))
+            {
+                SolicitacaoTransporte entidade = pgsqlConnection.Query<SolicitacaoTransporte>("SELECT * FROM solicitacaotransporte where id = @ID", new { Id = id }).FirstOrDefault();
+                
+                if (entidade != null)
+                {
+                    List<Produto> produtos = pgsqlConnection.Query<Produto>("SELECT * FROM solicitacaoproduto where solicitacaoid = @solicitacaoid", new { solicitacaoid = entidade.Id }).AsList();
+                    entidade.Produtos = produtos;
+                }
+                
+                return entidade;
+            }
+        }
+
         public List<SolicitacaoTransporte> RetornarSolicitacoes(DateTime dataInicial, DateTime dataFinal)
+        {
+            using (NpgsqlConnection pgsqlConnection = new NpgsqlConnection(DadosAutenticacao.RetornarStringConexao()))
+            {
+                string queryTexto = "";
+                var dynamicParameters = new DynamicParameters();
+
+                if (dataInicial != DateTime.MinValue)
+                {
+                    queryTexto = " where dataentrega >= @dataentrega1";
+                    dynamicParameters.Add("dataentrega1", dataInicial);
+                }
+
+                if (dataFinal != DateTime.MinValue)
+                {
+                    if (string.IsNullOrEmpty(queryTexto))
+                    {
+                        queryTexto += " where ";
+                    }
+                    else
+                    {
+                        queryTexto += " and ";
+                    }
+
+                    queryTexto += " dataentrega <= @dataentrega2";
+                    dynamicParameters.Add("dataentrega2", dataFinal);
+                }
+
+                List<SolicitacaoTransporte> lista = pgsqlConnection.Query<SolicitacaoTransporte>("SELECT * FROM solicitacaotransporte" + queryTexto, dynamicParameters).AsList();
+
+                foreach (SolicitacaoTransporte solic in lista)
+                {
+                    solic.Usuario = pgsqlConnection.Query<Usuario>("SELECT * FROM usuario WHERE Id = @Id", new { Id = solic.UsuarioId }).FirstOrDefault();
+                }
+
+                return lista;
+            }
+        }
+
+        public List<SolicitacaoTransporte> RetornarSolicitacaoPorId(DateTime dataInicial, DateTime dataFinal)
         {
             using (NpgsqlConnection pgsqlConnection = new NpgsqlConnection(DadosAutenticacao.RetornarStringConexao()))
             {

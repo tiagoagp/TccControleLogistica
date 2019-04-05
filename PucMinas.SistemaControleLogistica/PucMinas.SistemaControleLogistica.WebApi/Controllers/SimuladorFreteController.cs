@@ -13,8 +13,9 @@ namespace PucMinas.SistemaControleLogistica.WebApi.Controllers
 {
     public class SimuladorFreteController : ApiController
     {
+        [Authorize(Roles = "Cliente, Transportadora")]
         [HttpPost]
-        public HttpResponseMessage Post([FromBody] FreteModel model)
+        public IHttpActionResult Post([FromBody] FreteModel model)
         {
             try
             {
@@ -24,11 +25,11 @@ namespace PucMinas.SistemaControleLogistica.WebApi.Controllers
 
                 double valorFrete = tabelaFreteService.CalcularValorFrete(produtos, model.CidadeDestino, model.UfDestino);
                 
-                return Request.CreateResponse(System.Net.HttpStatusCode.OK, valorFrete);
+                return Ok(valorFrete);
             }
             catch (Exception e)
             {
-                return Request.CreateResponse(System.Net.HttpStatusCode.BadRequest, e);
+                return BadRequest(e.Message);
             }
         }
 

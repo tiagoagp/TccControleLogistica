@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
 {
+    [Authorize(Roles = "Cliente")]
     public class SolicitacaoTransporteController : Controller
     {
         // GET: SolicitacaoTransporte

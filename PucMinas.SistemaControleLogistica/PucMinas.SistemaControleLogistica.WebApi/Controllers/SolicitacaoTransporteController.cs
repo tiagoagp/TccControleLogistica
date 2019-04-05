@@ -13,6 +13,7 @@ namespace PucMinas.SistemaControleLogistica.WebApi.Controllers
 {
     public class SolicitacaoTransporteController : ApiController
     {
+        [Authorize(Roles = "Cliente")]
         [HttpPost]
         public IHttpActionResult Post(SolicitacaoTransporteModel model)
         {
@@ -69,8 +70,10 @@ namespace PucMinas.SistemaControleLogistica.WebApi.Controllers
             return entidade;
         }
 
+        [Authorize(Roles = "Cliente, Transportadora")]
+        [Route("Listar/{dataInicial}/{dataFinal}")]
         [HttpGet]
-        public IHttpActionResult Get([FromUri] DateTime dataInicial, [FromUri] DateTime dataFinal)
+        public IHttpActionResult Listar([FromUri] DateTime dataInicial, [FromUri] DateTime dataFinal)
         {
             try
             {
@@ -119,6 +122,75 @@ namespace PucMinas.SistemaControleLogistica.WebApi.Controllers
             }
 
             return listaModel;
+        }
+
+        private SolicitacaoTransporteModel RetornarModelSolicitacao(SolicitacaoTransporte entidade)
+        {
+            SolicitacaoTransporteModel model = new SolicitacaoTransporteModel()
+            {
+                BairroDestino = entidade.BairroDestino,
+                CepDestino = entidade.CepDestino,
+                ChaveAcessoNF = entidade.ChaveAcessoNF,
+                CidadeDestino = entidade.CidadeDestino,
+                CodigoControle = entidade.CodigoControle,
+                ComplementoDestino = entidade.ComplementoDestino,
+                DataEmissaoNF = entidade.DataEmissaoNF,
+                DataEntrega = entidade.DataEntrega,
+                DataEntregaTexto = entidade.DataEntrega.ToString("dd/MM/yyyy"),
+                EmailRecebedor = entidade.EmailRecebedor,
+                EstadoDestino = entidade.EstadoDestino,
+                Id = entidade.Id,
+                NomeRecebedor = entidade.NomeRecebedor,
+                NumeroDestino = entidade.NumeroDestino,
+                NumeroNF = entidade.NumeroNF,
+                PontoReferenciaEntrega = entidade.PontoReferenciaEntrega,
+                RuaDestino = entidade.RuaDestino,
+                SerieNF = entidade.SerieNF,
+                Status = entidade.Status,
+                TelefoneRecebedor = entidade.TelefoneRecebedor,
+                ValorFrete = entidade.ValorFrete,
+                Produtos = RetornarProdutos(entidade.Produtos)
+            };
+            
+            return model;
+        }
+
+        private List<ProdutoModel> RetornarProdutos(List<Produto> produtos)
+        {
+            List<ProdutoModel> listaModel = new List<ProdutoModel>();
+
+            foreach (Produto prod in produtos)
+            {
+                listaModel.Add(new ProdutoModel() {
+                    Altura = prod.Altura,
+                    Comprimento = prod.Comprimento,
+                    DescricaoProduto = prod.DescricaoProduto,
+                    Id = prod.Id,
+                    Largura = prod.Largura,
+                    Peso = prod.Peso,
+                    Quantidade = prod.Quantidade
+                });
+            }
+
+            return listaModel;
+        }
+
+        [Authorize(Roles = "Cliente, Transportadora")]
+        [HttpGet]
+        public IHttpActionResult Get([FromUri] Guid id)
+        {
+            try
+            {
+                SolicitacaoTransporteService solicitacaoService = ServiceFactory.RetornarSolicitacaoTransporteService();
+                SolicitacaoTransporte entidade = solicitacaoService.RetornarSolicitacaoPorId(id);
+                SolicitacaoTransporteModel model = RetornarModelSolicitacao(entidade);
+
+                return Ok(model);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

@@ -32,9 +32,23 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
                 {
                     Logar(usuario, senha);
 
-                    var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Email, usuario) }, "ApplicationCookie");
+                    DadosUsuarioAutenticado dados = (DadosUsuarioAutenticado)Session["usuario"];
+
+                    var identity = new ClaimsIdentity("ApplicationCookie");
                     var ctx = Request.GetOwinContext();
                     var authManager = ctx.Authentication;
+
+                    identity.AddClaim(new Claim(ClaimTypes.Email, usuario));
+
+                    if (dados.Tipo == Enumeradores.TipoUsuario.Cliente)
+                    {
+                        identity.AddClaim(new Claim(ClaimTypes.Role, "Cliente"));
+                    }
+
+                    if (dados.Tipo == Enumeradores.TipoUsuario.Transportadora)
+                    {
+                        identity.AddClaim(new Claim(ClaimTypes.Role, "Transportadora"));
+                    }
 
                     authManager.SignIn(identity);
 
@@ -121,7 +135,8 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
                 Token = dynObject.access_token.Value,
                 NomeUsuario = userModel.NomeUsuario,
                 Email = userModel.Email,
-                UsuarioId = userModel.Id
+                UsuarioId = userModel.Id,
+                Tipo = userModel.Tipo
             };
 
             Session["usuario"] = dados;

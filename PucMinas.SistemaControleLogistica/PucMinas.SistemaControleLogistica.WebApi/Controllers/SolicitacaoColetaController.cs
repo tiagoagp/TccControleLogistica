@@ -13,6 +13,7 @@ namespace PucMinas.SistemaControleLogistica.WebApi.Controllers
 {
     public class SolicitacaoColetaController : ApiController
     {
+        [Authorize(Roles = "Transportadora")]
         [HttpPost]
         public IHttpActionResult Post([FromBody] SolicitacaoColetaModel model)
         {
