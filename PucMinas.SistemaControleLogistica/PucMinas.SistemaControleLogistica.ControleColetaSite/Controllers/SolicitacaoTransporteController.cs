@@ -18,7 +18,25 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
         // GET: SolicitacaoTransporte
         public ActionResult Index()
         {
-            return View();
+            DadosUsuarioAutenticado dados = (DadosUsuarioAutenticado)Session["usuario"];
+            var token = dados.Token;
+
+            var client = new HttpClient { Timeout = new TimeSpan(0, 5, 0) };
+
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+            
+            var response = client.GetAsync($"{UrlApi.RetornarUrlWebApi()}api/SolicitacaoTransporte/Listar/{DateTime.MinValue}/{DateTime.MinValue}", new CancellationToken()).Result;
+
+            // var response = client.GetAsync($"{UrlApi.RetornarUrlWebApi()}api/SolicitacaoTransporte/Listar?dataInicial={new DateTime(175,1,1)}&dataFinal={new DateTime(175, 1, 1)}&idCliente={dados.UsuarioId}", new CancellationToken()).Result;
+
+            var responseString = response.Content.ReadAsStringAsync().Result;
+
+            API.Request.CheckRequest(response.StatusCode, responseString);
+
+            List<SolicitacaoTransporteModel> lista = JsonConvert.DeserializeObject<List<SolicitacaoTransporteModel>>(responseString);
+
+            return View(lista);
         }
 
         public ActionResult Create()
