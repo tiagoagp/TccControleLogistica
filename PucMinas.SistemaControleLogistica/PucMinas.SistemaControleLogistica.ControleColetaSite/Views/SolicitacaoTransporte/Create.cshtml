@@ -116,7 +116,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.DataEmissaoNF, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <input type="date" name="DataEmissaoNF" class="form-control" placeholder="Data de Emissão" required />
+            @Html.TextBoxFor(model => model.DataEmissaoNF, htmlAttributes: new { @class = "form-control", placeholder = "Data de Emissão", required = true, @type = "Date", @Value = Model.DataEmissaoNF.ToString("yyyy-MM-dd") })
             @Html.ValidationMessageFor(model => model.DataEmissaoNF, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -208,7 +208,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.DataEntrega, htmlAttributes: new { @class = "control-label col-md-3" })
         <div class="col-md-10">
-            <input type="date" name="DataEntrega" class="form-control" placeholder="Data Máxima de Entrega" required />
+            @Html.TextBoxFor(model => model.DataEntrega, htmlAttributes: new { @class = "form-control", placeholder = "Data Máxima de Entrega", required = true, @type = "Date", @Value = Model.DataEntrega.ToString("yyyy-MM-dd") })
             @Html.ValidationMessageFor(model => model.DataEntrega, "", new { @class = "text-danger" })
         </div>
     </div>
