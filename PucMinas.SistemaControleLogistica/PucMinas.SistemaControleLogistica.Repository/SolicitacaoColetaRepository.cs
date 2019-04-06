@@ -22,7 +22,7 @@ namespace PucMinas.SistemaControleLogistica.Repository
                 {
                     try
                     {
-                        pgsqlConnection.Execute("insert into solicitacaocoleta values (@idsolicitacaotransporte, @registromotorista, @placaveiculo)", entidade);
+                        pgsqlConnection.Execute("insert into solicitacaocoleta values (@id, @idsolicitacaotransporte, @registromotorista, @placaveiculo)", entidade);
                         
                         transaction.Commit();
                     }

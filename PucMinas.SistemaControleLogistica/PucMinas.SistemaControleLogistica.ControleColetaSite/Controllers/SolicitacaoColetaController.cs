@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
 {
-    //[Authorize(Roles = "Transportadora")]
+    [Authorize(Roles = "Transportadora")]
     public class SolicitacaoColetaController : Controller
     {
         public ActionResult Coletas()
@@ -104,6 +104,12 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
                 API.Request.CheckRequest(response.StatusCode, responseString);
 
                 List<SolicitacaoTransporteModel> lista = JsonConvert.DeserializeObject<List<SolicitacaoTransporteModel>>(responseString);
+                lista = lista.Where(l => l.Status == Enumeradores.StatusSolicitacao.Pendente).ToList();
+
+                foreach (var item in lista)
+                {
+                    item.DataEntregaTexto = item.DataEntrega.ToString("dd/MM/yyyy");
+                }
 
                 return Json(lista, JsonRequestBehavior.AllowGet);
             }
@@ -139,7 +145,7 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
 
                 API.Request.CheckRequest(response.StatusCode, responseString);
 
-                return Json(new { Erro = false, Mensagem = ""}, JsonRequestBehavior.AllowGet);
+                return Json(new { Erro = false, Mensagem = "Coleta solicitada com sucesso."}, JsonRequestBehavior.AllowGet);
             }
             catch (Exception e)
             {

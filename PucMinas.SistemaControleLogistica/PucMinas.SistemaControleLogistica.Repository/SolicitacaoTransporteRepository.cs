@@ -85,7 +85,7 @@ namespace PucMinas.SistemaControleLogistica.Repository
                     {
                         pgsqlConnection.Execute(" update solicitacaotransporte " +
                                                 " set status = @status " +
-                                                " where id = @id)", entidade);
+                                                " where id = @id", entidade);
 
                         transaction.Commit();
                     }

@@ -27,8 +27,8 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Models
             this.NumeroNF = string.Empty;
             this.SerieNF = string.Empty;
             this.ChaveAcessoNF = string.Empty;
-            this.DataEmissaoNF = DateTime.MinValue;
-            this.DataEntrega = DateTime.MinValue;
+            this.DataEmissaoNF = DateTime.Now;
+            this.DataEntrega = DateTime.Now;
             this.Status = StatusSolicitacao.Pendente;
             this.Produtos = new List<ProdutoModel>();
         }

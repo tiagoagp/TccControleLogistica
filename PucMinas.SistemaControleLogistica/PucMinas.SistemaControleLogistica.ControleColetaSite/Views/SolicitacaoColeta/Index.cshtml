@@ -169,7 +169,8 @@
 
                             $('.selecao-veiculo').select2({
                                 data: listaVeiculos,
-                                theme: 'bootstrap'
+                                theme: 'bootstrap',
+                                placeholder: "Selecione um veículo"
                             });
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
@@ -198,13 +199,14 @@
                             $.each(data, function (index, item) {
                                 listaMotoristas.push({
                                     id: item.RegistroFuncionario,
-                                    text: item.Nome
+                                    text: item.RegistroFuncionario + " - " + item.Nome
                                 });
                             });
 
                             $('.selecao-motorista').select2({
                                 data: listaMotoristas,
-                                theme: 'bootstrap'
+                                theme: 'bootstrap',
+                                placeholder: "Selecione um motorista"
                             });
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
@@ -242,7 +244,12 @@
                 contentType: 'application/json; charset=utf-8',
                 data: objColeta,
                 success: function (data) {
-                    alert(data.Mensagem)
+                    if (data.Erro) {
+                        toastr.error(data.Mensagem);
+                    } else {
+                        toastr.info(data.Mensagem);
+                        AtualizarListaSolicitacoes();
+                    }
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     console.error(xhr);
@@ -256,6 +263,13 @@
             $("#atualizar-lista-coletas").on("click", function () {
                 AtualizarListaSolicitacoes();
             });
+
+            AtualizarListaSolicitacoes();
+
+            toastr.options = {
+                positionClass: 'toast-top-full-width',
+                timeOut: 4000
+            }
         });
     </script>
 }

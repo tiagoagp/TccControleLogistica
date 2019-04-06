@@ -189,12 +189,15 @@
   <ItemGroup>
     <Content Include="ArquivosProjeto\css\sb-admin.css" />
     <Content Include="ArquivosProjeto\css\sb-admin.min.css" />
+    <Content Include="ArquivosProjeto\css\toastr.css" />
+    <Content Include="ArquivosProjeto\css\toastr.min.css" />
     <Content Include="ArquivosProjeto\js\demo\chart-area-demo.js" />
     <Content Include="ArquivosProjeto\js\demo\chart-bar-demo.js" />
     <Content Include="ArquivosProjeto\js\demo\chart-pie-demo.js" />
     <Content Include="ArquivosProjeto\js\demo\datatables-demo.js" />
     <Content Include="ArquivosProjeto\js\sb-admin.js" />
     <Content Include="ArquivosProjeto\js\sb-admin.min.js" />
+    <Content Include="ArquivosProjeto\js\toastr.min.js" />
     <Content Include="ArquivosProjeto\vendor\bootstrap\js\bootstrap.bundle.js" />
     <Content Include="ArquivosProjeto\vendor\bootstrap\js\bootstrap.bundle.min.js" />
     <Content Include="ArquivosProjeto\vendor\bootstrap\js\bootstrap.js" />
@@ -1918,6 +1921,7 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="ArquivosProjeto\js\toastr.js.map" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
