@@ -82,10 +82,12 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
             {
                 try
                 {
+                    DadosUsuarioAutenticado dados = (DadosUsuarioAutenticado)Session["usuario"];
+                    var token = dados.Token;
+
                     var client = new HttpClient { Timeout = new TimeSpan(0, 5, 0) };
                     client.DefaultRequestHeaders.Add("Accept", "application/json");
-
-                    DadosUsuarioAutenticado dados = (DadosUsuarioAutenticado)Session["usuario"];
+                    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
 
                     model.Usuario = new UsuarioModel();
                     model.Usuario.Id = dados.UsuarioId;
