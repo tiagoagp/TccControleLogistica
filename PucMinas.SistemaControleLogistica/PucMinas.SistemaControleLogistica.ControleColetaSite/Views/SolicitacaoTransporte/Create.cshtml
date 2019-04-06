@@ -14,6 +14,9 @@
 
 @using (Html.BeginForm("Inserir", "SolicitacaoTransporte", "POST"))
 {
+
+    @Html.HiddenFor(model => model.Id)
+
 <div class="form-horizontal">
     <h5>Produtos</h5>
     <button type="button" id="adicionar-produto" class="btn btn-primary" style="margin-bottom:10px;"><i class="fas fa-plus"><span style="margin-left:5px;">Produto</span></i></button><i style="margin-left:10px;color:#087BF5;" class="fa fa-info-circle"><span style="color:black; font-size:12px;">  Clique aqui para adicionar produtos</span></i>

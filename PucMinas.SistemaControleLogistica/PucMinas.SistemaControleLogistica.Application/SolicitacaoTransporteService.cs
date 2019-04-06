@@ -20,7 +20,7 @@ namespace PucMinas.SistemaControleLogistica.Application
             this.tabelaFreteService = tabelaFreteService;
         }
 
-        public void CriarSolicitacao(SolicitacaoTransporte entidade)
+        public Guid CriarSolicitacao(SolicitacaoTransporte entidade)
         {
             try
             {
@@ -40,8 +40,20 @@ namespace PucMinas.SistemaControleLogistica.Application
                 }
                 else
                 {
+                    SolicitacaoTransporte solicitacaoGravada = this.solicitacaoTransporteRepository.RetornarSolicitacaoPorId(entidade.Id);
+
+                    entidade.CodigoControle = solicitacaoGravada.CodigoControle;
+
+                    foreach (Produto prod in entidade.Produtos)
+                    {
+                        prod.Id = Guid.NewGuid();
+                        prod.SolicitacaoId = entidade.Id;
+                    }
+
                     this.solicitacaoTransporteRepository.EditarSolicitacao(entidade);
                 }
+
+                return entidade.Id;
             }
             catch (Exception e)
             {

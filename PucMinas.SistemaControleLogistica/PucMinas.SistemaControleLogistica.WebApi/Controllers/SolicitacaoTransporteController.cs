@@ -21,9 +21,9 @@ namespace PucMinas.SistemaControleLogistica.WebApi.Controllers
             {
                 SolicitacaoTransporteService solicitacaoService = ServiceFactory.RetornarSolicitacaoTransporteService();
                 SolicitacaoTransporte entidade = MapearSolicitacaoTransporte(model);
-                solicitacaoService.CriarSolicitacao(entidade);
+                Guid id = solicitacaoService.CriarSolicitacao(entidade);
 
-                return Ok();
+                return Ok(id);
             }
             catch (Exception e)
             {
@@ -72,6 +72,7 @@ namespace PucMinas.SistemaControleLogistica.WebApi.Controllers
             entidade.ValorFrete = model.ValorFrete;
             entidade.Status = model.Status;
             entidade.UsuarioId = model.Usuario.Id;
+            entidade.EmailRecebedor = model.EmailRecebedor;
 
             foreach (ProdutoModel item in model.Produtos)
             {

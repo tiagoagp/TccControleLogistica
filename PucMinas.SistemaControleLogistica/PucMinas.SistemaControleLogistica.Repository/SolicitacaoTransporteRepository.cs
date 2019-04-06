@@ -53,9 +53,9 @@ namespace PucMinas.SistemaControleLogistica.Repository
                     {
                         pgsqlConnection.Execute(" update solicitacaotransporte " +
                                                 " set nomerecebedor = @nomerecebedor, ruadestino = @ruadestino, telefonerecebedor = @telefonerecebedor, numerodestino = @numerodestino, complementodestino = @complementodestino, cepdestino = @cepdestino, bairrodestino = @bairrodestino, cidadedestino = @cidadedestino, estadodestino = @estadodestino, pontoreferenciaentrega = @pontoreferenciaentrega, numeronf = @numeronf, serienf = @serienf, chaveacessonf = @chaveacessonf, dataentrega = @dataentrega, dataemissaonf = @dataemissaonf, valorfrete = @valorfrete, status = @status, usuarioid = @usuarioid, emailrecebedor = @emailrecebedor, codigocontrole = @codigocontrole " +
-                                                " where id = @id)", entidade);
+                                                " where id = @id", entidade);
 
-                        pgsqlConnection.Execute("delete from solicitacaoproduto where solicitacaoid = @solicitacaoid", entidade.Id);
+                        pgsqlConnection.Execute("delete from solicitacaoproduto where solicitacaoid = @solicitacaoid", new { solicitacaoid = entidade .Id });
 
                         foreach (Produto prod in entidade.Produtos)
                         {

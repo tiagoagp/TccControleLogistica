@@ -34,6 +34,11 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
 
             List<SolicitacaoTransporteModel> lista = JsonConvert.DeserializeObject<List<SolicitacaoTransporteModel>>(responseString);
 
+            foreach (var item in lista)
+            {
+                item.DataEntregaTexto = item.DataEntrega.ToString("dd/MM/yyyy");
+            }
+
             return View(lista);
         }
 
