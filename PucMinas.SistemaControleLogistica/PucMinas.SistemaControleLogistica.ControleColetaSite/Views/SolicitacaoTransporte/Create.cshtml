@@ -266,6 +266,32 @@
 
 @section scripts{
     <script type="text/javascript">
+        function ReordenarListaProdutos() {
+            var listaProdutos = $(".painel-produto-adicionado");
+
+            $.each(listaProdutos, function (index, data) {
+                var objData = $(data);
+
+                var objDescricao = objData.find(".descricao-produto-lista");
+                objDescricao.attr("name", 'Produtos[' + index + '].DescricaoProduto');
+
+                var objQuantidade = objData.find(".quantidade-produto");
+                objQuantidade.attr("name", 'Produtos[' + index + '].Quantidade');
+
+                var objPeso = objData.find(".peso-produto");
+                objPeso.attr("name", 'Produtos[' + index + '].Peso');
+
+                var objAltura = objData.find(".altura-produto");
+                objAltura.attr("name", 'Produtos[' + index + '].Altura');
+
+                var objLargura = objData.find(".largura-produto");
+                objLargura.attr("name", 'Produtos[' + index + '].Largura');
+
+                var objComprimento = objData.find(".comprimento-produto");
+                objComprimento.attr("name", 'Produtos[' + index + '].Comprimento');
+            });
+        }
+
         $(document).ready(function () {
             $(".remove-produto").on("click", function () {
                 var objPai = $(this).parents(".painel-produto-adicionado").remove();
@@ -282,7 +308,7 @@
                     '            <div class="col-md-12">' +
                     '                 <label class="control-label col-md-3">Descrição do Produto</label>' +
                     '                 <div class="col-md-12">' +
-                    '                     <input type="text" class="form-control" name="Produtos[' + indice + '].DescricaoProduto" />' +
+                    '                     <input type="text" class="form-control descricao-produto-lista" name="Produtos[' + indice + '].DescricaoProduto" />' +
                     '                 </div>' +
                     '            </div>' +
                     '        </div>' +
@@ -334,6 +360,8 @@
 
                 objProduto.find(".remove-produto").on("click", function () {
                     var objPai = $(this).parents(".painel-produto-adicionado").remove();
+
+                    ReordenarListaProdutos();
                 });
             });
 
