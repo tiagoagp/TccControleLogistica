@@ -33,7 +33,7 @@
         </div>
     </div>
 
-    <button id="atualizar-lista-coletas" type="button" class="btn btn-primary col-sm-12 col-md-3 col-lg-3" style="margin-bottom:16px;"><i class="fa fa-sync-alt"> Atualizar Lista de Coletas</i></button>
+    <button id="atualizar-lista-coletas" type="button" class="btn btn-primary col-sm-12 col-md-3 col-lg-3" style="margin-bottom:16px;"><i class="fa fa-sync-alt"></i> Atualizar Lista de Coletas</button>
 
     <hr />
 
@@ -60,6 +60,10 @@
                 type: 'GET',
                 dataType: "json",
                 contentType: 'application/json; charset=utf-8',
+                beforeSend: function () {
+                    $("#atualizar-lista-coletas").find('i').removeAttr('class').addClass("fa fa-sync-alt fa-spin");
+                    $("#atualizar-lista-coletas").attr('disabled', 'disabled');
+                },
                 data: { dataInicial: dataInicial, dataFinal: dataFinal },
                 success: function (lista) {
                     var painelGeral = $("#painel-geral");
@@ -225,6 +229,9 @@
                     console.error(ajaxOptions);
                     console.error(thrownError);
                 }
+            }).always(function () {
+                $("#atualizar-lista-coletas").find('i').removeAttr('class').addClass("fa fa-sync-alt");
+                $("#atualizar-lista-coletas").removeAttr('disabled');
             });
         }
 
