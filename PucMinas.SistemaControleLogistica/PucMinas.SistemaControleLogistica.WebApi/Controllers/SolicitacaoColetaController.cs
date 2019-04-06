@@ -50,7 +50,7 @@ namespace PucMinas.SistemaControleLogistica.WebApi.Controllers
                 List<SolicitacaoColeta> lista = solicitacaoColetaService.RetornarSolicitacoesColeta();
                 List<SolicitacaoColetaModel> listaModel = RetornarListaModel(lista);
 
-                return Ok();
+                return Ok(listaModel);
             }
             catch (Exception e)
             {
