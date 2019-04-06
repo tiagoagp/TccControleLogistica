@@ -122,5 +122,7 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Models
         public double ValorFrete { get; set; }
 
         public StatusSolicitacao Status { get; set; }
+
+        public int CodigoControle { get; set; }
     }
 }

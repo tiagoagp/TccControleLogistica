@@ -34,5 +34,26 @@ namespace PucMinas.SistemaControleLogistica.Repository
                 }
             }
         }
+
+        public List<SolicitacaoColeta> RetornarSolicitacoesColeta()
+        {
+            using (NpgsqlConnection pgsqlConnection = new NpgsqlConnection(DadosAutenticacao.RetornarStringConexao()))
+            {
+                List<SolicitacaoColeta> lista = pgsqlConnection.Query<SolicitacaoColeta>("SELECT * FROM solicitacaocoleta").AsList();
+
+                foreach (SolicitacaoColeta solic in lista)
+                {
+                    SolicitacaoTransporte entidade = pgsqlConnection.Query<SolicitacaoTransporte>("SELECT * FROM solicitacaotransporte where id = @ID", new { Id = solic.IdSolicitacaoTransporte }).FirstOrDefault();
+
+                    if (entidade != null)
+                    {
+                        solic.CodigoControleSolicitacao = entidade.CodigoControle;
+                        solic.StatusSolicitacao = entidade.Status;
+                    }
+                }
+
+                return lista;
+            }
+        }
     }
 }

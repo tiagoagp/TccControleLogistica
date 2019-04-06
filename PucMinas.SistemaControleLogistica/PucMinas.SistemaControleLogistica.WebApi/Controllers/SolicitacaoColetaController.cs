@@ -39,5 +39,42 @@ namespace PucMinas.SistemaControleLogistica.WebApi.Controllers
                 RegistroMotorista = model.RegistroMotorista
             };
         }
+        
+        [Authorize(Roles = "Transportadora")]
+        [HttpGet]
+        public IHttpActionResult Get()
+        {
+            try
+            {
+                SolicitacaoColetaService solicitacaoColetaService = ServiceFactory.RetornarSolicitacaoColetaService();
+                List<SolicitacaoColeta> lista = solicitacaoColetaService.RetornarSolicitacoesColeta();
+                List<SolicitacaoColetaModel> listaModel = RetornarListaModel(lista);
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        private List<SolicitacaoColetaModel> RetornarListaModel(List<SolicitacaoColeta> lista)
+        {
+            List<SolicitacaoColetaModel> listaModel = new List<SolicitacaoColetaModel>();
+
+            foreach (SolicitacaoColeta item in lista)
+            {
+                listaModel.Add(new SolicitacaoColetaModel() {
+                    Id = item.Id,
+                    IdSolicitacaoTransporte = item.IdSolicitacaoTransporte,
+                    PlacaVeiculo = item.PlacaVeiculo,
+                    CodigoControleSolicitacao = item.CodigoControleSolicitacao,
+                    RegistroMotorista = item.RegistroMotorista,
+                    StatusSolicitacao = item.StatusSolicitacao
+                });
+            }
+
+            return listaModel;
+        }
     }
 }

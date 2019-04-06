@@ -1,0 +1,60 @@
+﻿@model IEnumerable<PucMinas.SistemaControleLogistica.ControleColetaSite.Models.SolicitacaoColetaModel>
+
+@{
+    ViewBag.Title = "Coletas";
+}
+
+<h2>Lista de Coletas de Produtos em Clientes</h2>
+
+
+@section Breadcrumbs{
+    <li class="breadcrumb-item"><a href="/home/index">Home</a></li>
+    <li class="breadcrumb-item active"><a href="#">Coletas de Produtos em Clientes</a></li>
+}
+
+<h2>Coletas de Produtos</h2>
+
+<hr />
+
+<table id="tabela-solicitacoes" class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Nº de Controle Solicitação de Transporte</th>
+            <th>Status Solicitação de Transporte</th>
+            <th>Placa Veículo</th>
+            <th>Registro Motorista</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var coleta in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => coleta.CodigoControleSolicitacao)</td>
+
+                @{
+                    var statusTexto = "";
+
+                    if (coleta.StatusSolicitacao == PucMinas.SistemaControleLogistica.ControleColetaSite.Enumeradores.StatusSolicitacao.Pendente)
+                    {
+                        statusTexto = "Pendente de coleta no cliente";
+                    }
+                    else if (coleta.StatusSolicitacao == PucMinas.SistemaControleLogistica.ControleColetaSite.Enumeradores.StatusSolicitacao.ColetaEmAndamento)
+                    {
+                        statusTexto = "Coleta em andamento";
+                    }
+                }
+
+                <td>@statusTexto</td>
+                <td>@Html.DisplayFor(modelItem => coleta.PlacaVeiculo)</td>
+                <td>@Html.DisplayFor(modelItem => coleta.RegistroMotorista)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+        });
+    </script>
+}

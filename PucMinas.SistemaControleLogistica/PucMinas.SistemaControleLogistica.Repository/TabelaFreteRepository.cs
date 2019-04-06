@@ -16,8 +16,7 @@ namespace PucMinas.SistemaControleLogistica.Repository
         {
             using (NpgsqlConnection pgsqlConnection = new NpgsqlConnection(DadosAutenticacao.RetornarStringConexao()))
             {
-                // ALTERAR PARA QUE RETORNE APENAS A ÚLTIMA TARIFA CADASTRADA NO SISTEMA
-                TabelaFrete tabelaFrete = pgsqlConnection.Query<TabelaFrete>("select * from tabelafrete").FirstOrDefault();
+                TabelaFrete tabelaFrete = pgsqlConnection.Query<TabelaFrete>("select * from tabelafrete order by dataatualizacao desc limit 1").FirstOrDefault();
                 return tabelaFrete;
             }
         }

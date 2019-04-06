@@ -24,17 +24,24 @@ namespace PucMinas.SistemaControleLogistica.Application
         {
             try
             {
-                entidade.Id = Guid.NewGuid();
-                entidade.CodigoControle = this.solicitacaoTransporteRepository.RetornarProximoCodigoControle();
-                entidade.ValorFrete = this.tabelaFreteService.CalcularValorFrete(entidade.Produtos, entidade.CidadeDestino, entidade.EstadoDestino);
-
-                foreach (Produto prod in entidade.Produtos)
+                if (entidade.Id == Guid.Empty)
                 {
-                    prod.Id = Guid.NewGuid();
-                    prod.SolicitacaoId = entidade.Id;
-                }
+                    entidade.Id = Guid.NewGuid();
+                    entidade.CodigoControle = this.solicitacaoTransporteRepository.RetornarProximoCodigoControle();
+                    entidade.ValorFrete = this.tabelaFreteService.CalcularValorFrete(entidade.Produtos, entidade.CidadeDestino, entidade.EstadoDestino);
 
-                this.solicitacaoTransporteRepository.InserirNovaSolicitacao(entidade);
+                    foreach (Produto prod in entidade.Produtos)
+                    {
+                        prod.Id = Guid.NewGuid();
+                        prod.SolicitacaoId = entidade.Id;
+                    }
+
+                    this.solicitacaoTransporteRepository.InserirNovaSolicitacao(entidade);
+                }
+                else
+                {
+                    this.solicitacaoTransporteRepository.EditarSolicitacao(entidade);
+                }
             }
             catch (Exception e)
             {

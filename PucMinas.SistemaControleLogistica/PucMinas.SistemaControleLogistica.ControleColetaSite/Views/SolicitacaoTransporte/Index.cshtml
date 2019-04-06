@@ -17,6 +17,7 @@
 <table id="tabela-solicitacoes" class="table">
     <thead class="thead-dark">
         <tr>
+            <th>Nº de Controle</th>
             <th>Data Entrega</th>
             <th>Cliente</th>
             <th>Cidade</th>
@@ -28,6 +29,7 @@
     <tbody>
         @foreach (var solic in Model) {
         <tr>
+            <td>@Html.DisplayFor(modelItem => solic.CodigoControle)</td>
             <td>@Html.DisplayFor(modelItem => solic.DataEntregaTexto)</td>
             <td>@Html.DisplayFor(modelItem => solic.Usuario.NomeUsuario)</td>
             <td>@Html.DisplayFor(modelItem => solic.CidadeDestino)</td>
@@ -36,7 +38,7 @@
             @{
                 var statusTexto = "";
 
-                if(solic.Status == PucMinas.SistemaControleLogistica.ControleColetaSite.Enumeradores.StatusSolicitacao.Pendente)
+                if (solic.Status == PucMinas.SistemaControleLogistica.ControleColetaSite.Enumeradores.StatusSolicitacao.Pendente)
                 {
                     statusTexto = "Pendente de coleta no cliente";
                 }

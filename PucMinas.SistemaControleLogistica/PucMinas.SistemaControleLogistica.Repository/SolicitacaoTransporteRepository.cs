@@ -14,8 +14,7 @@ namespace PucMinas.SistemaControleLogistica.Repository
     public class SolicitacaoTransporteRepository
     {
         public void InserirNovaSolicitacao(SolicitacaoTransporte entidade)
-        {
-            
+        {   
             using (NpgsqlConnection pgsqlConnection = new NpgsqlConnection(DadosAutenticacao.RetornarStringConexao()))
             {
                 pgsqlConnection.Open();
@@ -30,6 +29,63 @@ namespace PucMinas.SistemaControleLogistica.Repository
                         {
                             pgsqlConnection.Execute("insert into solicitacaoproduto values (@id, @quantidade, @peso, @altura, @largura, @comprimento, @solicitacaoid, @descricaoproduto)", prod);
                         }
+
+                        transaction.Commit();
+                    }
+                    catch (Exception e)
+                    {
+                        transaction.Rollback();
+                        throw e;
+                    }
+                }
+            }
+        }
+
+        public void EditarSolicitacao(SolicitacaoTransporte entidade)
+        {
+            using (NpgsqlConnection pgsqlConnection = new NpgsqlConnection(DadosAutenticacao.RetornarStringConexao()))
+            {
+                pgsqlConnection.Open();
+
+                using (var transaction = pgsqlConnection.BeginTransaction())
+                {
+                    try
+                    {
+                        pgsqlConnection.Execute(" update solicitacaotransporte " +
+                                                " set nomerecebedor = @nomerecebedor, ruadestino = @ruadestino, telefonerecebedor = @telefonerecebedor, numerodestino = @numerodestino, complementodestino = @complementodestino, cepdestino = @cepdestino, bairrodestino = @bairrodestino, cidadedestino = @cidadedestino, estadodestino = @estadodestino, pontoreferenciaentrega = @pontoreferenciaentrega, numeronf = @numeronf, serienf = @serienf, chaveacessonf = @chaveacessonf, dataentrega = @dataentrega, dataemissaonf = @dataemissaonf, valorfrete = @valorfrete, status = @status, usuarioid = @usuarioid, emailrecebedor = @emailrecebedor, codigocontrole = @codigocontrole " +
+                                                " where id = @id)", entidade);
+
+                        pgsqlConnection.Execute("delete from solicitacaoproduto where solicitacaoid = @solicitacaoid", entidade.Id);
+
+                        foreach (Produto prod in entidade.Produtos)
+                        {
+                            pgsqlConnection.Execute("insert into solicitacaoproduto values (@id, @quantidade, @peso, @altura, @largura, @comprimento, @solicitacaoid, @descricaoproduto)", prod);
+                        }
+
+                        transaction.Commit();
+                    }
+                    catch (Exception e)
+                    {
+                        transaction.Rollback();
+                        throw e;
+                    }
+                }
+            }
+        }
+
+        public void AlterarStatusSolicitacaoSolicitacao(SolicitacaoTransporte entidade)
+        {
+            using (NpgsqlConnection pgsqlConnection = new NpgsqlConnection(DadosAutenticacao.RetornarStringConexao()))
+            {
+                pgsqlConnection.Open();
+
+                using (var transaction = pgsqlConnection.BeginTransaction())
+                {
+                    try
+                    {
+                        pgsqlConnection.Execute(" update solicitacaotransporte " +
+                                                " set status = @status " +
+                                                " where id = @id)", entidade);
 
                         transaction.Commit();
                     }

@@ -15,6 +15,27 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
     //[Authorize(Roles = "Transportadora")]
     public class SolicitacaoColetaController : Controller
     {
+        public ActionResult Coletas()
+        {
+            DadosUsuarioAutenticado dados = (DadosUsuarioAutenticado)Session["usuario"];
+            var token = dados.Token;
+
+            var client = new HttpClient { Timeout = new TimeSpan(0, 5, 0) };
+
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+
+            var response = client.GetAsync($"{UrlApi.RetornarUrlWebApi()}api/SolicitacaoColeta", new CancellationToken()).Result;
+
+            var responseString = response.Content.ReadAsStringAsync().Result;
+
+            API.Request.CheckRequest(response.StatusCode, responseString);
+
+            List<SolicitacaoColetaModel> lista = JsonConvert.DeserializeObject<List<SolicitacaoColetaModel>>(responseString);
+
+            return View(lista);
+        }
+
         // GET: SolicitacaoColeta
         public ActionResult Index()
         {

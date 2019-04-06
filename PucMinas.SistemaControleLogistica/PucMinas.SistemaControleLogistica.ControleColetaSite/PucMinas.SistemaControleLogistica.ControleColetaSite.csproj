@@ -1950,6 +1950,7 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\SolicitacaoColeta\Index.cshtml" />
     <Content Include="Views\SolicitacaoTransporte\Index.cshtml" />
+    <Content Include="Views\SolicitacaoColeta\Coletas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
