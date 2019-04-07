@@ -7,12 +7,105 @@
 
 @section Breadcrumbs{
     <li class="breadcrumb-item"><a href="/home/index">Home</a></li>
-    <li class="breadcrumb-item active"><a href="#">Lista de Solicitações de Transporte</a></li>
+    <li class="breadcrumb-item active"><a href="#">Solicitações Transporte</a></li>
 }
 
 <h2>Solicitações de Transporte</h2>
 
 <hr />
+
+@{
+    var index = 0;
+}
+
+@foreach (var solic in Model)
+{
+    <div class="panel panel-body bg-light border painel-solicitacao" style="margin-top:15px;">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label col-md-7" style="font-weight:bold;">Nº de Controle:</label>
+                        <div class="col-md-10">
+                            @Html.DisplayFor(modelItem => solic.CodigoControle)
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="control-label col-md-10" style="font-weight:bold;">Data Entrega:</label>
+                        <div class="col-md-10">
+                            @Html.DisplayFor(modelItem => solic.DataEntregaTexto)
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="control-label col-md-10" style="font-weight:bold;">Status:</label>
+                        <div class="col-md-10">
+                            @{
+                        var statusTexto = "";
+
+                        if (solic.Status == PucMinas.SistemaControleLogistica.ControleColetaSite.Enumeradores.StatusSolicitacao.Pendente)
+                        {
+                            statusTexto = "Pendente de coleta no cliente";
+                        }
+                        else if (solic.Status == PucMinas.SistemaControleLogistica.ControleColetaSite.Enumeradores.StatusSolicitacao.ColetaEmAndamento)
+                        {
+                            statusTexto = "Coleta em andamento";
+                        }
+                            }
+
+                            <label>@statusTexto</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @{
+        var hrefPainelDetalhes = "#multiCollapseExample" + index;
+            }
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary col-md-12" data-toggle="collapse" href="@hrefPainelDetalhes" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"><i class="fa fa-cube exibir-produtos-coleta"> Detalhes</i></button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col">
+
+                    @{
+                var idPainelDetalhes = "multiCollapseExample" + index;
+                index = index + 1;
+                    }
+
+                    <div class="collapse multi-collapse" id="@idPainelDetalhes">
+                        <div class="card card-body">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <label class="control-label col-md-10" style="font-weight:bold;">Cidade:</label>
+                                    <div class="col-md-10">
+                                        @Html.DisplayFor(modelItem => solic.CidadeDestino)
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <label class="control-label col-md-10" style="font-weight:bold;">Estado:</label>
+                                    <div class="col-md-10">
+                                        @Html.DisplayFor(modelItem => solic.EstadoDestino)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top:10px;">
+                <div class="col-md-12">
+                    <a class="btn btn-success col-md-12" href="/SolicitacaoTransporte/Edit?id=@solic.Id"><i class="fa fa-edit"> Editar Solicitação</i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 <table id="tabela-solicitacoes" class="table">
     <thead class="thead-dark">
@@ -27,32 +120,33 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var solic in Model) {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => solic.CodigoControle)</td>
-            <td>@Html.DisplayFor(modelItem => solic.DataEntregaTexto)</td>
-            <td>@Html.DisplayFor(modelItem => solic.Usuario.NomeUsuario)</td>
-            <td>@Html.DisplayFor(modelItem => solic.CidadeDestino)</td>
-            <td>@Html.DisplayFor(modelItem => solic.EstadoDestino)</td>
+        @foreach (var solic in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => solic.CodigoControle)</td>
+                <td>@Html.DisplayFor(modelItem => solic.DataEntregaTexto)</td>
+                <td>@Html.DisplayFor(modelItem => solic.Usuario.NomeUsuario)</td>
+                <td>@Html.DisplayFor(modelItem => solic.CidadeDestino)</td>
+                <td>@Html.DisplayFor(modelItem => solic.EstadoDestino)</td>
 
-            @{
-                var statusTexto = "";
+                @{
+                    var statusTexto = "";
 
-                if (solic.Status == PucMinas.SistemaControleLogistica.ControleColetaSite.Enumeradores.StatusSolicitacao.Pendente)
-                {
-                    statusTexto = "Pendente de coleta no cliente";
+                    if (solic.Status == PucMinas.SistemaControleLogistica.ControleColetaSite.Enumeradores.StatusSolicitacao.Pendente)
+                    {
+                        statusTexto = "Pendente de coleta no cliente";
+                    }
+                    else if (solic.Status == PucMinas.SistemaControleLogistica.ControleColetaSite.Enumeradores.StatusSolicitacao.ColetaEmAndamento)
+                    {
+                        statusTexto = "Coleta em andamento";
+                    }
                 }
-                else if (solic.Status == PucMinas.SistemaControleLogistica.ControleColetaSite.Enumeradores.StatusSolicitacao.ColetaEmAndamento)
-                {
-                    statusTexto = "Coleta em andamento";
-                }
-            }
 
-            <td>@statusTexto</td>
-            <td>
-                <a class="btn btn-success" href="/SolicitacaoTransporte/Edit?id=@solic.Id"><i class="fa fa-edit"></i></a>
-            </td>
-        </tr>
+                <td>@statusTexto</td>
+                <td>
+                    <a class="btn btn-success" href="/SolicitacaoTransporte/Edit?id=@solic.Id"><i class="fa fa-edit"></i></a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
