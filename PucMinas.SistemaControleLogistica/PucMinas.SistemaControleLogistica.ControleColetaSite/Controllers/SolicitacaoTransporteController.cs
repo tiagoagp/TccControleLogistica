@@ -70,6 +70,8 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
 
             SolicitacaoTransporteModel model = JsonConvert.DeserializeObject<SolicitacaoTransporteModel>(responseString);
 
+            model.ValorFrete = model.ValorFrete.Replace(".", ",");
+
             return View("Create", model);
         }
 
