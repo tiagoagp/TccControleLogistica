@@ -119,7 +119,7 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Models
         public DateTime DataEmissaoNF { get; set; }
 
         [DisplayName("Valor do Frete")]
-        public double ValorFrete { get; set; }
+        public string ValorFrete { get; set; }
 
         public StatusSolicitacao Status { get; set; }
 
