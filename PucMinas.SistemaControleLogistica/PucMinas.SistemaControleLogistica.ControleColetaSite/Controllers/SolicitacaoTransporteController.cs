@@ -97,7 +97,6 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
                     client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
 
                     model.Usuario = new UsuarioModel();
-                    model.Usuario.Id = dados.UsuarioId;
 
                     var serializeContent = JsonConvert.SerializeObject(model);
                     HttpContent content = new StringContent(serializeContent, Encoding.UTF8, "application/json");
