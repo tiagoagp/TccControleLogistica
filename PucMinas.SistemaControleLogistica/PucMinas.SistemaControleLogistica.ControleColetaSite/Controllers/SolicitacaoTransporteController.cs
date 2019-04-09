@@ -145,8 +145,15 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
                 var responseString = response.Content.ReadAsStringAsync().Result;
 
                 API.Request.CheckRequest(response.StatusCode, responseString);
-                
-                return Json(new { Erro = false, Mensagem = "", Valor = responseString.Replace(".", ",") });
+
+                string valorSimulacao = responseString.Replace(".", ",");
+                double valorNumerico;
+                double.TryParse(valorSimulacao, out valorNumerico);
+
+                valorSimulacao = valorNumerico.ToString("N4");
+
+
+                return Json(new { Erro = false, Mensagem = "", Valor = valorSimulacao });
             }
             catch (Exception e)
             {
