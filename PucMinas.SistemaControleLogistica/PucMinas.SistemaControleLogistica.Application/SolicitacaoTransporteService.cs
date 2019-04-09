@@ -24,12 +24,14 @@ namespace PucMinas.SistemaControleLogistica.Application
         {
             try
             {
+                entidade.UsuarioId = entidade.Usuario.Id;
+
                 if (entidade.Id == Guid.Empty)
                 {
                     entidade.Id = Guid.NewGuid();
                     entidade.CodigoControle = this.solicitacaoTransporteRepository.RetornarProximoCodigoControle();
                     entidade.ValorFrete = this.tabelaFreteService.CalcularValorFrete(entidade.Produtos, entidade.CidadeDestino, entidade.EstadoDestino);
-
+                    
                     foreach (Produto prod in entidade.Produtos)
                     {
                         prod.Id = Guid.NewGuid();
