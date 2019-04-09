@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Web.Http;
 
 namespace PucMinas.SistemaControleLogistica.WebApi.Controllers
@@ -19,8 +20,25 @@ namespace PucMinas.SistemaControleLogistica.WebApi.Controllers
         {
             try
             {
+                ClaimsPrincipal principal = Request.GetRequestContext().Principal as ClaimsPrincipal;
+                Guid idUsuario = Guid.Empty;
+
+                foreach (var claim in principal.Claims)
+                {
+                    if (claim.Type == "sub")
+                    {
+                        Guid.TryParse(claim.Value.ToString(), out idUsuario);
+                    }
+                }
+
+                UsuarioService usuarioService = ServiceFactory.RetornarUsuarioService();
+                Usuario usuario = usuarioService.RetornarUsuario(idUsuario);
+                
                 SolicitacaoTransporteService solicitacaoService = ServiceFactory.RetornarSolicitacaoTransporteService();
                 SolicitacaoTransporte entidade = MapearSolicitacaoTransporte(model);
+
+                entidade.Usuario = usuario;
+
                 Guid id = solicitacaoService.CriarSolicitacao(entidade);
 
                 return Ok(id);
@@ -71,7 +89,6 @@ namespace PucMinas.SistemaControleLogistica.WebApi.Controllers
             entidade.DataEmissaoNF = model.DataEmissaoNF;
             entidade.ValorFrete = model.ValorFrete;
             entidade.Status = model.Status;
-            entidade.UsuarioId = model.Usuario.Id;
             entidade.EmailRecebedor = model.EmailRecebedor;
 
             foreach (ProdutoModel item in model.Produtos)
