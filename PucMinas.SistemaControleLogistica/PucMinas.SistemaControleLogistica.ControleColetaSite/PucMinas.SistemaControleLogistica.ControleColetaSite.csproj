@@ -177,7 +177,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DadosUsuarioAutenticado.cs" />
+    <Compile Include="Models\FiltroSolicitacaoTransporteModel.cs" />
     <Compile Include="Models\FreteModel.cs" />
+    <Compile Include="Models\ListaSolicitacaoTransporteModel.cs" />
     <Compile Include="Models\Motorista.cs" />
     <Compile Include="Models\ProdutoModel.cs" />
     <Compile Include="Models\SolicitacaoColetaModel.cs" />
@@ -195,6 +197,8 @@
     <Content Include="ArquivosProjeto\js\demo\chart-bar-demo.js" />
     <Content Include="ArquivosProjeto\js\demo\chart-pie-demo.js" />
     <Content Include="ArquivosProjeto\js\demo\datatables-demo.js" />
+    <Content Include="ArquivosProjeto\js\Paginas\SolicitacaoColetaIndex.js" />
+    <Content Include="ArquivosProjeto\js\Paginas\SolicitacaoTransporteCreate.js" />
     <Content Include="ArquivosProjeto\js\sb-admin.js" />
     <Content Include="ArquivosProjeto\js\sb-admin.min.js" />
     <Content Include="ArquivosProjeto\js\toastr.min.js" />

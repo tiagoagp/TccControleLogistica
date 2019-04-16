@@ -1,5 +1,7 @@
-﻿using PucMinas.SistemaControleLogistica.Application.Utilitarios;
+﻿using PucMinas.SistemaControleLogistica.Application.Interfaces;
+using PucMinas.SistemaControleLogistica.Application.Utilitarios;
 using PucMinas.SistemaControleLogistica.Domain.Entidades;
+using PucMinas.SistemaControleLogistica.Domain.Interfaces;
 using PucMinas.SistemaControleLogistica.Repository;
 using System;
 using System.Collections.Generic;
@@ -9,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace PucMinas.SistemaControleLogistica.Application
 {
-    public class UsuarioService
+    public class UsuarioService : IUsuarioService
     {
-        private readonly UsuarioRepository usuarioRepository;
+        private readonly IUsuarioRepository usuarioRepository;
 
-        public UsuarioService(UsuarioRepository usuarioRepository)
+        public UsuarioService(IUsuarioRepository usuarioRepository)
         {
             this.usuarioRepository = usuarioRepository;
         }

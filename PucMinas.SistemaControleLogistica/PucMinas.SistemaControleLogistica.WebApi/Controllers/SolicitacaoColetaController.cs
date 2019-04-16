@@ -1,5 +1,6 @@
 ﻿using PucMinas.SistemaControleLogistica.Application;
 using PucMinas.SistemaControleLogistica.Application.Factory;
+using PucMinas.SistemaControleLogistica.Application.Interfaces;
 using PucMinas.SistemaControleLogistica.Domain.Entidades;
 using PucMinas.SistemaControleLogistica.WebApi.Models;
 using System;
@@ -20,7 +21,7 @@ namespace PucMinas.SistemaControleLogistica.WebApi.Controllers
             try
             {
                 SolicitacaoColeta solicitacaoColeta = RetornarSolicitacaoColeta(model);
-                SolicitacaoColetaService solicitacaoColetaService = ServiceFactory.RetornarSolicitacaoColetaService();
+                ISolicitacaoColetaService solicitacaoColetaService = ServiceFactory.RetornarSolicitacaoColetaService();
                 solicitacaoColetaService.InserirNovaSolicitacaoColeta(solicitacaoColeta);
 
                 return Ok();
@@ -46,7 +47,7 @@ namespace PucMinas.SistemaControleLogistica.WebApi.Controllers
         {
             try
             {
-                SolicitacaoColetaService solicitacaoColetaService = ServiceFactory.RetornarSolicitacaoColetaService();
+                ISolicitacaoColetaService solicitacaoColetaService = ServiceFactory.RetornarSolicitacaoColetaService();
                 List<SolicitacaoColeta> lista = solicitacaoColetaService.RetornarSolicitacoesColeta();
                 List<SolicitacaoColetaModel> listaModel = RetornarListaModel(lista);
 

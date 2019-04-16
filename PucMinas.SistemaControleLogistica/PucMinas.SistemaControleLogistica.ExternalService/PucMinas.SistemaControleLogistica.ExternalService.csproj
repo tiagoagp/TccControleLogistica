@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="ApiGoogleExternalService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SistemaGestaoFrotaExternalService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="NLog.config">

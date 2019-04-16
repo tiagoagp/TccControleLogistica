@@ -1,4 +1,8 @@
-﻿using PucMinas.SistemaControleLogistica.Domain.Entidades;
+﻿using PucMinas.SistemaControleLogistica.Application.Interfaces;
+using PucMinas.SistemaControleLogistica.Domain.Entidades;
+using PucMinas.SistemaControleLogistica.Domain.Enumeradores;
+using PucMinas.SistemaControleLogistica.Domain.Filtros;
+using PucMinas.SistemaControleLogistica.Domain.Interfaces;
 using PucMinas.SistemaControleLogistica.Repository;
 using System;
 using System.Collections.Generic;
@@ -8,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace PucMinas.SistemaControleLogistica.Application
 {
-    public class SolicitacaoTransporteService
+    public class SolicitacaoTransporteService : ISolicitacaoTransporteService
     {
-        private readonly SolicitacaoTransporteRepository solicitacaoTransporteRepository;
-        private readonly TabelaFreteService tabelaFreteService;
+        private readonly ISolicitacaoTransporteRepository solicitacaoTransporteRepository;
+        private readonly ITabelaFreteService tabelaFreteService;
 
-        public SolicitacaoTransporteService(SolicitacaoTransporteRepository solicitacaoTransporteRepository,
-                                            TabelaFreteService tabelaFreteService)
+        public SolicitacaoTransporteService(ISolicitacaoTransporteRepository solicitacaoTransporteRepository,
+                                            ITabelaFreteService tabelaFreteService)
         {
             this.solicitacaoTransporteRepository = solicitacaoTransporteRepository;
             this.tabelaFreteService = tabelaFreteService;
@@ -63,11 +67,11 @@ namespace PucMinas.SistemaControleLogistica.Application
             }
         }
 
-        public List<SolicitacaoTransporte> RetornarSolicitacoes(DateTime dataInicial, DateTime dataFinal, Guid idCliente)
+        public List<SolicitacaoTransporte> RetornarSolicitacoes(FiltroSolicitacaoTransporte filtrosConsulta)
         {
             try
             {
-                return this.solicitacaoTransporteRepository.RetornarSolicitacoes(dataInicial, dataFinal, idCliente);
+                return this.solicitacaoTransporteRepository.RetornarSolicitacoes(filtrosConsulta);
             }
             catch (Exception e)
             {
@@ -75,6 +79,18 @@ namespace PucMinas.SistemaControleLogistica.Application
             }
         }
 
+        public int RetornarTotalSolicitacoes(FiltroSolicitacaoTransporte filtrosConsulta)
+        {
+            try
+            {
+                return this.solicitacaoTransporteRepository.RetornarTotalSolicitacoes(filtrosConsulta);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+        
         public SolicitacaoTransporte RetornarSolicitacaoPorId(Guid id)
         {
             try

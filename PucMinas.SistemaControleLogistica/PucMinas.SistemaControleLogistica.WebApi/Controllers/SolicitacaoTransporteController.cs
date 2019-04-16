@@ -1,5 +1,6 @@
 ﻿using PucMinas.SistemaControleLogistica.Application;
 using PucMinas.SistemaControleLogistica.Application.Factory;
+using PucMinas.SistemaControleLogistica.Application.Interfaces;
 using PucMinas.SistemaControleLogistica.Domain.Entidades;
 using PucMinas.SistemaControleLogistica.WebApi.Models;
 using System;
@@ -31,10 +32,10 @@ namespace PucMinas.SistemaControleLogistica.WebApi.Controllers
                     }
                 }
 
-                UsuarioService usuarioService = ServiceFactory.RetornarUsuarioService();
+                IUsuarioService usuarioService = ServiceFactory.RetornarUsuarioService();
                 Usuario usuario = usuarioService.RetornarUsuario(idUsuario);
                 
-                SolicitacaoTransporteService solicitacaoService = ServiceFactory.RetornarSolicitacaoTransporteService();
+                ISolicitacaoTransporteService solicitacaoService = ServiceFactory.RetornarSolicitacaoTransporteService();
                 SolicitacaoTransporte entidade = MapearSolicitacaoTransporte(model);
 
                 entidade.Usuario = usuario;
@@ -55,7 +56,7 @@ namespace PucMinas.SistemaControleLogistica.WebApi.Controllers
         {
             try
             {
-                SolicitacaoTransporteService solicitacaoService = ServiceFactory.RetornarSolicitacaoTransporteService();
+                ISolicitacaoTransporteService solicitacaoService = ServiceFactory.RetornarSolicitacaoTransporteService();
                 SolicitacaoTransporte entidade = solicitacaoService.RetornarSolicitacaoPorId(id);
                 SolicitacaoTransporteModel model = RetornarModelSolicitacao(entidade);
 

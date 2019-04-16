@@ -1,5 +1,7 @@
-﻿using PucMinas.SistemaControleLogistica.Domain.Entidades;
+﻿using PucMinas.SistemaControleLogistica.Application.Interfaces;
+using PucMinas.SistemaControleLogistica.Domain.Entidades;
 using PucMinas.SistemaControleLogistica.Domain.Enumeradores;
+using PucMinas.SistemaControleLogistica.Domain.Interfaces;
 using PucMinas.SistemaControleLogistica.Repository;
 using System;
 using System.Collections.Generic;
@@ -9,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace PucMinas.SistemaControleLogistica.Application
 {
-    public class SolicitacaoColetaService
+    public class SolicitacaoColetaService : ISolicitacaoColetaService
     {
-        private SolicitacaoColetaRepository solicitacaoColetaRepository;
-        private SolicitacaoTransporteRepository solicitacaoTransporteRepository;
+        private ISolicitacaoColetaRepository solicitacaoColetaRepository;
+        private ISolicitacaoTransporteRepository solicitacaoTransporteRepository;
 
-        public SolicitacaoColetaService(SolicitacaoColetaRepository solicitacaoColetaRepository, SolicitacaoTransporteRepository solicitacaoTransporteRepository)
+        public SolicitacaoColetaService(ISolicitacaoColetaRepository solicitacaoColetaRepository, ISolicitacaoTransporteRepository solicitacaoTransporteRepository)
         {
             this.solicitacaoColetaRepository = solicitacaoColetaRepository;
             this.solicitacaoTransporteRepository = solicitacaoTransporteRepository;

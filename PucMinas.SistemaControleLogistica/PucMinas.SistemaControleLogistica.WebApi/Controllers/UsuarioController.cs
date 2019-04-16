@@ -1,5 +1,6 @@
 ﻿using PucMinas.SistemaControleLogistica.Application;
 using PucMinas.SistemaControleLogistica.Application.Factory;
+using PucMinas.SistemaControleLogistica.Application.Interfaces;
 using PucMinas.SistemaControleLogistica.Domain.Entidades;
 using PucMinas.SistemaControleLogistica.WebApi.Models;
 using System;
@@ -31,7 +32,7 @@ namespace PucMinas.SistemaControleLogistica.WebApi.Controllers
                     }
                 }
 
-                UsuarioService usuarioService = ServiceFactory.RetornarUsuarioService();
+                IUsuarioService usuarioService = ServiceFactory.RetornarUsuarioService();
                 Usuario usuario = usuarioService.RetornarUsuario(idUsuario);
 
                 UsuarioModel usuarioModel = new UsuarioModel()

@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Npgsql;
 using PucMinas.SistemaControleLogistica.Domain.Entidades;
+using PucMinas.SistemaControleLogistica.Domain.Interfaces;
 using PucMinas.SistemaControleLogistica.Domain.Utilitarios;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace PucMinas.SistemaControleLogistica.Repository
 {
-    public class OrganizacaoRepository
+    public class OrganizacaoRepository : IOrganizacaoRepository
     {
         public Organizacao RetornarOrganizacao()
         {

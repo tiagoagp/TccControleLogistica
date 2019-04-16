@@ -209,6 +209,8 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Auth\ProviderAccessToken.cs" />
+    <Compile Include="Controllers\GestaoFrotasMotoristaController.cs" />
+    <Compile Include="Controllers\GestaoFrotasVeiculoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ListaSolicitacoesController.cs" />
     <Compile Include="Controllers\SimuladorFreteController.cs" />
@@ -220,11 +222,15 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AtualizacaoStatusSolicitacaoModel.cs" />
+    <Compile Include="Models\FiltroSolicitacaoTransporteModel.cs" />
     <Compile Include="Models\FreteModel.cs" />
+    <Compile Include="Models\ListaSolicitacaoTransporteModel.cs" />
+    <Compile Include="Models\MotoristaModel.cs" />
     <Compile Include="Models\ProdutoModel.cs" />
     <Compile Include="Models\SolicitacaoColetaModel.cs" />
     <Compile Include="Models\SolicitacaoTransporteModel.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
+    <Compile Include="Models\VeiculoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

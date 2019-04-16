@@ -1,4 +1,6 @@
-﻿using PucMinas.SistemaControleLogistica.Domain.Entidades;
+﻿using PucMinas.SistemaControleLogistica.Application.Interfaces;
+using PucMinas.SistemaControleLogistica.Domain.Entidades;
+using PucMinas.SistemaControleLogistica.Domain.Interfaces;
 using PucMinas.SistemaControleLogistica.ExternalService;
 using PucMinas.SistemaControleLogistica.Repository;
 using System;
@@ -9,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace PucMinas.SistemaControleLogistica.Application
 {
-    public class TabelaFreteService
+    public class TabelaFreteService : ITabelaFreteService
     {
-        private TabelaFreteRepository tabelaFreteRepository;
-        private ApiGoogleExternalService apiGoogleExternalService;
-        private OrganizacaoRepository organizacaoRepository;
+        private ITabelaFreteRepository tabelaFreteRepository;
+        private IApiGoogleExternalService apiGoogleExternalService;
+        private IOrganizacaoRepository organizacaoRepository;
 
-        public TabelaFreteService(ApiGoogleExternalService apiGoogleExternalService, OrganizacaoRepository organizacaoRepository, TabelaFreteRepository tabelaFreteRepository)
+        public TabelaFreteService(IApiGoogleExternalService apiGoogleExternalService, IOrganizacaoRepository organizacaoRepository, ITabelaFreteRepository tabelaFreteRepository)
         {
             this.apiGoogleExternalService = apiGoogleExternalService;
             this.organizacaoRepository = organizacaoRepository;

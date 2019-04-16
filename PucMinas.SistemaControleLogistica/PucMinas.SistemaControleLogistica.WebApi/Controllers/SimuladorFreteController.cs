@@ -1,5 +1,6 @@
 ﻿using PucMinas.SistemaControleLogistica.Application;
 using PucMinas.SistemaControleLogistica.Application.Factory;
+using PucMinas.SistemaControleLogistica.Application.Interfaces;
 using PucMinas.SistemaControleLogistica.Domain.Entidades;
 using PucMinas.SistemaControleLogistica.WebApi.Models;
 using System;
@@ -19,7 +20,7 @@ namespace PucMinas.SistemaControleLogistica.WebApi.Controllers
         {
             try
             {
-                TabelaFreteService tabelaFreteService = ServiceFactory.RetornarTabelaFreteService();
+                ITabelaFreteService tabelaFreteService = ServiceFactory.RetornarTabelaFreteService();
 
                 List<Produto> produtos = RetornarProdutos(model.Produtos);
 

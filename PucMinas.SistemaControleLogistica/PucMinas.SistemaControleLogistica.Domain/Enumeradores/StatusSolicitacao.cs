@@ -8,6 +8,7 @@ namespace PucMinas.SistemaControleLogistica.Domain.Enumeradores
 {
     public enum StatusSolicitacao
     {
+        Todos = -1,
         Pendente = 0,
         ColetaEmAndamento = 1
     }

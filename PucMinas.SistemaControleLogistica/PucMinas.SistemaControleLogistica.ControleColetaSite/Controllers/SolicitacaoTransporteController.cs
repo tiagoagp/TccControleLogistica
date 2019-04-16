@@ -25,9 +25,22 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
 
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
-            
-            var response = client.GetAsync($"{UrlApi.RetornarUrlWebApi()}api/ListaSolicitacoes?dataInicial={DateTime.MinValue}&dataFinal={DateTime.MinValue}&idCliente={dados.UsuarioId}", new CancellationToken()).Result;
-            
+
+            FiltroSolicitacaoTransporteModel filtros = new FiltroSolicitacaoTransporteModel()
+            {
+                DataInicial = DateTime.MinValue.ToString(),
+                DataFinal = DateTime.MinValue.ToString(),
+                IdCliente = dados.UsuarioId,
+                Offset = 0,
+                Limit = int.MaxValue,
+                Status = Enumeradores.StatusSolicitacao.Todos
+            };
+
+            var serializeContent = JsonConvert.SerializeObject(filtros);
+            HttpContent content = new StringContent(serializeContent, Encoding.UTF8, "application/json");
+
+            var response = client.PostAsync($"{UrlApi.RetornarUrlWebApi()}api/ListaSolicitacoes", content, new CancellationToken()).Result;
+
             var responseString = response.Content.ReadAsStringAsync().Result;
 
             API.Request.CheckRequest(response.StatusCode, responseString);

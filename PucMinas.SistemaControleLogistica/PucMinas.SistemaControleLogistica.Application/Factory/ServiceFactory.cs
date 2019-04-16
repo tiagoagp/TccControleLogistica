@@ -1,4 +1,6 @@
-﻿using PucMinas.SistemaControleLogistica.ExternalService;
+﻿using PucMinas.SistemaControleLogistica.Application.Interfaces;
+using PucMinas.SistemaControleLogistica.Domain.Interfaces;
+using PucMinas.SistemaControleLogistica.ExternalService;
 using PucMinas.SistemaControleLogistica.Repository;
 using System;
 using System.Collections.Generic;
@@ -10,33 +12,39 @@ namespace PucMinas.SistemaControleLogistica.Application.Factory
 {
     public class ServiceFactory
     {
-        public static SolicitacaoTransporteService RetornarSolicitacaoTransporteService()
+        public static ISolicitacaoTransporteService RetornarSolicitacaoTransporteService()
         {
-            SolicitacaoTransporteRepository solicitacaoTransporteRepository = new SolicitacaoTransporteRepository();
-            TabelaFreteService tabelaFreteService = RetornarTabelaFreteService();
+            ISolicitacaoTransporteRepository solicitacaoTransporteRepository = new SolicitacaoTransporteRepository();
+            ITabelaFreteService tabelaFreteService = RetornarTabelaFreteService();
             return new SolicitacaoTransporteService(solicitacaoTransporteRepository, tabelaFreteService);
         }
 
-        public static UsuarioService RetornarUsuarioService()
+        public static IUsuarioService RetornarUsuarioService()
         {
-            UsuarioRepository usuarioRepository = new UsuarioRepository();
+            IUsuarioRepository usuarioRepository = new UsuarioRepository();
             return new UsuarioService(usuarioRepository);
         }
 
-        public static SolicitacaoColetaService RetornarSolicitacaoColetaService()
+        public static ISolicitacaoColetaService RetornarSolicitacaoColetaService()
         {
-            SolicitacaoColetaRepository solicitacaoColetaRepository = new SolicitacaoColetaRepository();
-            SolicitacaoTransporteRepository solicitacaoTransporteRepository = new SolicitacaoTransporteRepository();
+            ISolicitacaoTransporteRepository solicitacaoTransporteRepository = new SolicitacaoTransporteRepository();
+            ISolicitacaoColetaRepository solicitacaoColetaRepository = new SolicitacaoColetaRepository(solicitacaoTransporteRepository);
             return new SolicitacaoColetaService(solicitacaoColetaRepository, solicitacaoTransporteRepository);
         }
 
-        public static TabelaFreteService RetornarTabelaFreteService()
+        public static ITabelaFreteService RetornarTabelaFreteService()
         {
-            ApiGoogleExternalService apiGoogleExternalService = new ApiGoogleExternalService();
-            OrganizacaoRepository organizacaoRepository = new OrganizacaoRepository();
-            TabelaFreteRepository tabelaFreteRepository = new TabelaFreteRepository();
+            IApiGoogleExternalService apiGoogleExternalService = new ApiGoogleExternalService();
+            IOrganizacaoRepository organizacaoRepository = new OrganizacaoRepository();
+            ITabelaFreteRepository tabelaFreteRepository = new TabelaFreteRepository();
 
             return new TabelaFreteService(apiGoogleExternalService, organizacaoRepository, tabelaFreteRepository);
+        }
+
+        public static ISistemaGestaoFrotaService RetornarSistemaGestaoFrotaService()
+        {
+            ISistemaGestaoFrotaExternalService sistemaGestaoFrotaExternalService = new SistemaGestaoFrotaExternalService();
+            return new SistemaGestaoFrotaService(sistemaGestaoFrotaExternalService);
         }
     }
 }

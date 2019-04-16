@@ -1,6 +1,10 @@
 ﻿using Dapper;
+using NLog;
 using Npgsql;
 using PucMinas.SistemaControleLogistica.Domain.Entidades;
+using PucMinas.SistemaControleLogistica.Domain.Enumeradores;
+using PucMinas.SistemaControleLogistica.Domain.Filtros;
+using PucMinas.SistemaControleLogistica.Domain.Interfaces;
 using PucMinas.SistemaControleLogistica.Domain.Utilitarios;
 using System;
 using System.Collections.Generic;
@@ -11,8 +15,15 @@ using System.Threading.Tasks;
 
 namespace PucMinas.SistemaControleLogistica.Repository
 {
-    public class SolicitacaoTransporteRepository
+    public class SolicitacaoTransporteRepository : ISolicitacaoTransporteRepository
     {
+        private Logger logger;
+
+        public SolicitacaoTransporteRepository()
+        {
+            this.logger = LogManager.GetCurrentClassLogger();
+        }
+
         public void InserirNovaSolicitacao(SolicitacaoTransporte entidade)
         {   
             using (NpgsqlConnection pgsqlConnection = new NpgsqlConnection(DadosAutenticacao.RetornarStringConexao()))
@@ -31,10 +42,13 @@ namespace PucMinas.SistemaControleLogistica.Repository
                         }
 
                         transaction.Commit();
+
+                        this.logger.Info($"Solicitação de transporte nº {entidade.CodigoControle} aberta com sucesso em {DateTime.Now}.");
                     }
                     catch (Exception e)
                     {
                         transaction.Rollback();
+                        this.logger.Error($"Erro ao tentar abrir a solicitação de transporte nº {entidade.CodigoControle} em {DateTime.Now}.");
                         throw e;
                     }
                 }
@@ -63,10 +77,13 @@ namespace PucMinas.SistemaControleLogistica.Repository
                         }
 
                         transaction.Commit();
+
+                        this.logger.Info($"Solicitação de transporte nº {entidade.CodigoControle} alterada com sucesso em {DateTime.Now}.");
                     }
                     catch (Exception e)
                     {
                         transaction.Rollback();
+                        this.logger.Error($"Erro ao tentar alterar a solicitação de transporte nº {entidade.CodigoControle} em {DateTime.Now}.");
                         throw e;
                     }
                 }
@@ -86,12 +103,15 @@ namespace PucMinas.SistemaControleLogistica.Repository
                         pgsqlConnection.Execute(" update solicitacaotransporte " +
                                                 " set status = @status " +
                                                 " where id = @id", entidade);
-
+                        
                         transaction.Commit();
+
+                        this.logger.Info($"Alteração de status da solicitação de transporte nº {entidade.CodigoControle} efetuada com sucesso em {DateTime.Now}.");
                     }
                     catch (Exception e)
                     {
                         transaction.Rollback();
+                        this.logger.Error($"Erro ao tentar alterar o status da solicitação de transporte nº {entidade.CodigoControle} em {DateTime.Now}.");
                         throw e;
                     }
                 }
@@ -143,20 +163,20 @@ namespace PucMinas.SistemaControleLogistica.Repository
             }
         }
 
-        public List<SolicitacaoTransporte> RetornarSolicitacoes(DateTime dataInicial, DateTime dataFinal, Guid idCliente)
+        public List<SolicitacaoTransporte> RetornarSolicitacoes(FiltroSolicitacaoTransporte filtrosConsulta)
         {
             using (NpgsqlConnection pgsqlConnection = new NpgsqlConnection(DadosAutenticacao.RetornarStringConexao()))
             {
                 string queryTexto = "";
                 var dynamicParameters = new DynamicParameters();
 
-                if (idCliente != Guid.Empty)
+                if (filtrosConsulta.IdCliente != Guid.Empty)
                 {
                     queryTexto = " where usuarioid = @usuarioid";
-                    dynamicParameters.Add("usuarioid", idCliente);
+                    dynamicParameters.Add("usuarioid", filtrosConsulta.IdCliente);
                 }
 
-                if (dataInicial != DateTime.MinValue)
+                if (filtrosConsulta.DataInicial != DateTime.MinValue)
                 {
                     if (string.IsNullOrEmpty(queryTexto))
                     {
@@ -168,10 +188,10 @@ namespace PucMinas.SistemaControleLogistica.Repository
                     }
 
                     queryTexto = " where dataentrega >= @dataentrega1";
-                    dynamicParameters.Add("dataentrega1", dataInicial);
+                    dynamicParameters.Add("dataentrega1", filtrosConsulta.DataInicial);
                 }
 
-                if (dataFinal != DateTime.MinValue)
+                if (filtrosConsulta.DataFinal != DateTime.MinValue)
                 {
                     if (string.IsNullOrEmpty(queryTexto))
                     {
@@ -183,10 +203,28 @@ namespace PucMinas.SistemaControleLogistica.Repository
                     }
 
                     queryTexto += " dataentrega <= @dataentrega2";
-                    dynamicParameters.Add("dataentrega2", dataFinal);
+                    dynamicParameters.Add("dataentrega2", filtrosConsulta.DataFinal);
                 }
 
-                List<SolicitacaoTransporte> lista = pgsqlConnection.Query<SolicitacaoTransporte>("SELECT * FROM solicitacaotransporte" + queryTexto, dynamicParameters).AsList();
+                if(filtrosConsulta.Status != StatusSolicitacao.Todos)
+                {
+                    if (string.IsNullOrEmpty(queryTexto))
+                    {
+                        queryTexto += " where ";
+                    }
+                    else
+                    {
+                        queryTexto += " and ";
+                    }
+
+                    queryTexto += " status = @status";
+                    dynamicParameters.Add("status", (int)filtrosConsulta.Status);
+                }
+
+                dynamicParameters.Add("Limit", filtrosConsulta.Limit);
+                dynamicParameters.Add("Offset", filtrosConsulta.Offset);
+
+                List<SolicitacaoTransporte> lista = pgsqlConnection.Query<SolicitacaoTransporte>("SELECT * FROM solicitacaotransporte" + queryTexto + " ORDER BY codigocontrole LIMIT @Limit OFFSET @Offset", dynamicParameters).AsList();
 
                 foreach (SolicitacaoTransporte solic in lista)
                 {
@@ -194,6 +232,70 @@ namespace PucMinas.SistemaControleLogistica.Repository
                 }
 
                 return lista;
+            }
+        }
+
+        public int RetornarTotalSolicitacoes(FiltroSolicitacaoTransporte filtrosConsulta)
+        {
+            using (NpgsqlConnection pgsqlConnection = new NpgsqlConnection(DadosAutenticacao.RetornarStringConexao()))
+            {
+                string queryTexto = "";
+                var dynamicParameters = new DynamicParameters();
+
+                if (filtrosConsulta.IdCliente != Guid.Empty)
+                {
+                    queryTexto = " where usuarioid = @usuarioid";
+                    dynamicParameters.Add("usuarioid", filtrosConsulta.IdCliente);
+                }
+
+                if (filtrosConsulta.DataInicial != DateTime.MinValue)
+                {
+                    if (string.IsNullOrEmpty(queryTexto))
+                    {
+                        queryTexto += " where ";
+                    }
+                    else
+                    {
+                        queryTexto += " and ";
+                    }
+
+                    queryTexto = " where dataentrega >= @dataentrega1";
+                    dynamicParameters.Add("dataentrega1", filtrosConsulta.DataInicial);
+                }
+
+                if (filtrosConsulta.DataFinal != DateTime.MinValue)
+                {
+                    if (string.IsNullOrEmpty(queryTexto))
+                    {
+                        queryTexto += " where ";
+                    }
+                    else
+                    {
+                        queryTexto += " and ";
+                    }
+
+                    queryTexto += " dataentrega <= @dataentrega2";
+                    dynamicParameters.Add("dataentrega2", filtrosConsulta.DataFinal);
+                }
+
+                if (filtrosConsulta.Status != StatusSolicitacao.Todos)
+                {
+                    if (string.IsNullOrEmpty(queryTexto))
+                    {
+                        queryTexto += " where ";
+                    }
+                    else
+                    {
+                        queryTexto += " and ";
+                    }
+
+                    queryTexto += " status = @status";
+                    dynamicParameters.Add("status", (int)filtrosConsulta.Status);
+                }
+
+                int quantidade = pgsqlConnection.ExecuteScalar<int>("SELECT Count(1) FROM solicitacaotransporte" + queryTexto, dynamicParameters);
+                
+                return quantidade;
             }
         }
     }

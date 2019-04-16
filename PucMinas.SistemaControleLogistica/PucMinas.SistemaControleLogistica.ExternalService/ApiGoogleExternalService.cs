@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using PucMinas.SistemaControleLogistica.Domain.Interfaces;
 using PucMinas.SistemaControleLogistica.Domain.Utilitarios;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace PucMinas.SistemaControleLogistica.ExternalService
 {
-    public class ApiGoogleExternalService
+    public class ApiGoogleExternalService : IApiGoogleExternalService
     {
         public double RetornarDistanciaEntreDoisLocais(string cidadeOrigem, string ufOrigem, string cidadeDestino, string ufDestino)
         {

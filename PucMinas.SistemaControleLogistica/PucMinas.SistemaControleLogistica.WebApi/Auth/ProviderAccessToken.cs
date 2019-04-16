@@ -1,6 +1,8 @@
 ﻿using Microsoft.Owin.Security.OAuth;
+using NLog;
 using PucMinas.SistemaControleLogistica.Application;
 using PucMinas.SistemaControleLogistica.Application.Factory;
+using PucMinas.SistemaControleLogistica.Application.Interfaces;
 using PucMinas.SistemaControleLogistica.Domain.Entidades;
 using PucMinas.SistemaControleLogistica.Domain.Enumeradores;
 using System;
@@ -20,7 +22,9 @@ namespace PucMinas.SistemaControleLogistica.WebApi.Auth
         }
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            UsuarioService usuarioService = ServiceFactory.RetornarUsuarioService();
+            Logger logger = LogManager.GetCurrentClassLogger();
+
+            IUsuarioService usuarioService = ServiceFactory.RetornarUsuarioService();
 
             Usuario usuario = usuarioService.RetornarUsuario(context.UserName, context.Password);
 
@@ -40,6 +44,8 @@ namespace PucMinas.SistemaControleLogistica.WebApi.Auth
                 {
                     identity.AddClaim(new Claim(ClaimTypes.Role, "Transportadora"));
                 }
+
+                logger.Info($"Login do usuário {usuario.Email} efetuado com sucesso em {DateTime.Now}.");
 
                 context.Validated(identity);
             }
