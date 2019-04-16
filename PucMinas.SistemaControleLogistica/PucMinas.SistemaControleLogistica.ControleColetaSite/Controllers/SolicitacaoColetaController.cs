@@ -121,7 +121,6 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
                 ListaSolicitacaoTransporteModel listaComQuantidade = JsonConvert.DeserializeObject<ListaSolicitacaoTransporteModel>(responseString);
 
                 List<SolicitacaoTransporteModel> lista = listaComQuantidade.ListaModel;
-                lista = lista.Where(l => l.Status == Enumeradores.StatusSolicitacao.Pendente).ToList();
 
                 foreach (var item in lista)
                 {
