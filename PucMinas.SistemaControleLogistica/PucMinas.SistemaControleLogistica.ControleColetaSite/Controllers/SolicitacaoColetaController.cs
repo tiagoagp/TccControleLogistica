@@ -89,7 +89,7 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
         {
             try
             {
-                int QuantidadePorPagina = 10;
+                int QuantidadePorPagina = 20;
                 int intervalo = (pagina * QuantidadePorPagina) - QuantidadePorPagina;
 
                 DadosUsuarioAutenticado dados = (DadosUsuarioAutenticado)Session["usuario"];
