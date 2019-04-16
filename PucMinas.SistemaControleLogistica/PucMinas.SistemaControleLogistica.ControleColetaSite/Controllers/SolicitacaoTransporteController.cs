@@ -45,7 +45,9 @@ namespace PucMinas.SistemaControleLogistica.ControleColetaSite.Controllers
 
             API.Request.CheckRequest(response.StatusCode, responseString);
 
-            List<SolicitacaoTransporteModel> lista = JsonConvert.DeserializeObject<List<SolicitacaoTransporteModel>>(responseString);
+            ListaSolicitacaoTransporteModel listaComQuantidade = JsonConvert.DeserializeObject<ListaSolicitacaoTransporteModel>(responseString);
+
+            List<SolicitacaoTransporteModel> lista = listaComQuantidade.ListaModel;
 
             foreach (var item in lista)
             {
