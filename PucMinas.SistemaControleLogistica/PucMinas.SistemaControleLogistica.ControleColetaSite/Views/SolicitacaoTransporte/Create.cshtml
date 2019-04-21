@@ -33,7 +33,7 @@
                     <div class="row" style="margin-top:10px;">
                         <div class="col-md-12">
                             <label class="control-label col-md-3">Descrição do Produto</label>
-                            <div class="col-md-12">
+                            <div class="col-md-12 col-sm-12">
                                 <input type="text" class="form-control" name="Produtos[@indiceProd].DescricaoProduto" value="@prod.DescricaoProduto" />
                             </div>
                         </div>
@@ -41,13 +41,13 @@
                     <div class="row" style="margin-top:10px;">
                         <div class="col-md-6">
                             <label class="control-label col-md-5">Quantidade (Un.)</label>
-                            <div class="col-md-12">
+                            <div class="col-md-12 col-sm-12">
                                 <input type="number" class="form-control quantidade-produto" name="Produtos[@indiceProd].Quantidade" value="@prod.Quantidade" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label class="control-label col-md-5">Peso por unidade (Kg)</label>
-                            <div class="col-md-12">
+                            <div class="col-md-12 col-sm-12">
                                 <input type="number" class="form-control peso-produto" name="Produtos[@indiceProd].Peso" value="@prod.Peso" />
                             </div>
                         </div>
@@ -55,19 +55,19 @@
                     <div class="row" style="margin-top:10px;">
                         <div class="col-md-4">
                             <label class="control-label col-md-7">Altura por unidade (cm)</label>
-                            <div class="col-md-12">
+                            <div class="col-md-12 col-sm-12">
                                 <input type="number" class="form-control altura-produto" name="Produtos[@indiceProd].Altura" value="@prod.Altura" />
                             </div>
                         </div>
                         <div class="col-md-4">
                             <label class="control-label col-md-7">Largura por unidade (cm)</label>
-                            <div class="col-md-12">
+                            <div class="col-md-12 col-sm-12">
                                 <input type="number" class="form-control largura-produto" name="Produtos[@indiceProd].Largura" value="@prod.Largura" />
                             </div>
                         </div>
                         <div class="col-md-4">
                             <label class="control-label col-md-7">Comprimento por unidade (cm)</label>
-                            <div class="col-md-12">
+                            <div class="col-md-12 col-sm-12">
                                 <input type="number" class="form-control comprimento-produto" name="Produtos[@indiceProd].Comprimento" value="@prod.Comprimento" />
                             </div>
                         </div>
@@ -75,7 +75,7 @@
 
                     <div class="row" style="margin-top:10px;">
                         <div class="col-md-12">
-                            <div class="col-md-12">
+                            <div class="col-md-12 col-sm-12">
                                 <button class="btn btn-danger col-md-12 remove-produto"><i class="fa fa-trash"></i> Remover Produto</button>
                             </div>
                         </div>
@@ -91,7 +91,7 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.NumeroNF, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="col-md-10 col-sm-10">
             @Html.EditorFor(model => model.NumeroNF, new { htmlAttributes = new { @class = "form-control", Placeholder = "Número", maxlength = "100", required = true } })
             @Html.ValidationMessageFor(model => model.NumeroNF, "", new { @class = "text-danger" })
         </div>
@@ -99,7 +99,7 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.SerieNF, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="col-md-10 col-sm-10">
             @Html.EditorFor(model => model.SerieNF, new { htmlAttributes = new { @class = "form-control", Placeholder = "Série", maxlength = "20", required = true } })
             @Html.ValidationMessageFor(model => model.SerieNF, "", new { @class = "text-danger" })
         </div>
@@ -107,7 +107,7 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.ChaveAcessoNF, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="col-md-10 col-sm-10">
             @Html.EditorFor(model => model.ChaveAcessoNF, new { htmlAttributes = new { @class = "form-control", Placeholder = "Chave de Acesso", maxlength = "100", required = true } })
             @Html.ValidationMessageFor(model => model.ChaveAcessoNF, "", new { @class = "text-danger" })
         </div>
@@ -115,7 +115,7 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.DataEmissaoNF, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="col-md-10 col-sm-10">
             @Html.TextBoxFor(model => model.DataEmissaoNF, htmlAttributes: new { @class = "form-control", placeholder = "Data de Emissão", required = true, @type = "Date", @Value = Model.DataEmissaoNF.ToString("yyyy-MM-dd") })
             @Html.ValidationMessageFor(model => model.DataEmissaoNF, "", new { @class = "text-danger" })
         </div>
@@ -127,7 +127,7 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.CepDestino, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="col-md-10 col-sm-10">
             @Html.EditorFor(model => model.CepDestino, new { htmlAttributes = new { @class = "form-control", Placeholder = "CEP", maxlength = "9", required = true, @id = "cep-destino" } })
             @Html.ValidationMessageFor(model => model.CepDestino, "", new { @class = "text-danger" })
         </div>
@@ -135,7 +135,7 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.RuaDestino, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="col-md-10 col-sm-10">
             @Html.EditorFor(model => model.RuaDestino, new { htmlAttributes = new { @class = "form-control", Placeholder = "Rua", maxlength = "200", required = true, @id = "rua-destino" } })
             @Html.ValidationMessageFor(model => model.RuaDestino, "", new { @class = "text-danger" })
         </div>
@@ -143,7 +143,7 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.NumeroDestino, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="col-md-10 col-sm-10">
             @Html.EditorFor(model => model.NumeroDestino, new { htmlAttributes = new { @class = "form-control", Placeholder = "Número", maxlength = "40", required = true } })
             @Html.ValidationMessageFor(model => model.NumeroDestino, "", new { @class = "text-danger" })
         </div>
@@ -151,7 +151,7 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.ComplementoDestino, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="col-md-10 col-sm-10">
             @Html.EditorFor(model => model.ComplementoDestino, new { htmlAttributes = new { @class = "form-control", Placeholder = "Complemento", maxlength = "60" } })
             @Html.ValidationMessageFor(model => model.ComplementoDestino, "", new { @class = "text-danger" })
         </div>
@@ -159,7 +159,7 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.BairroDestino, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="col-md-10 col-sm-10">
             @Html.EditorFor(model => model.BairroDestino, new { htmlAttributes = new { @class = "form-control", Placeholder = "Bairro", maxlength = "50", required = true, @id = "bairro-destino" } })
             @Html.ValidationMessageFor(model => model.BairroDestino, "", new { @class = "text-danger" })
         </div>
@@ -167,7 +167,7 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.CidadeDestino, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="col-md-10 col-sm-10">
             @Html.EditorFor(model => model.CidadeDestino, new { htmlAttributes = new { @class = "form-control", Placeholder = "Cidade", maxlength = "100", required = true, @id = "cidade-destino" } })
             @Html.ValidationMessageFor(model => model.CidadeDestino, "", new { @class = "text-danger" })
         </div>
@@ -175,7 +175,7 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.EstadoDestino, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="col-md-10 col-sm-10">
             @Html.EditorFor(model => model.EstadoDestino, new { htmlAttributes = new { @class = "form-control", Placeholder = "UF", maxlength = "100", required = true, @id = "estado-destino" } })
             @Html.ValidationMessageFor(model => model.EstadoDestino, "", new { @class = "text-danger" })
         </div>
@@ -183,7 +183,7 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.PontoReferenciaEntrega, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="col-md-10 col-sm-10">
             @Html.EditorFor(model => model.PontoReferenciaEntrega, new { htmlAttributes = new { @class = "form-control", Placeholder = "Ponto de Referência", maxlength = "255", required = true } })
             @Html.ValidationMessageFor(model => model.PontoReferenciaEntrega, "", new { @class = "text-danger" })
         </div>
@@ -195,7 +195,7 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.ValorFrete, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="col-md-10 col-sm-10">
             @Html.EditorFor(model => model.ValorFrete, new { htmlAttributes = new { @class = "form-control", Placeholder = "Valor do Frete", required = true, @readonly = true, @id = "valor-frete" } })
             @Html.ValidationMessageFor(model => model.ValorFrete, "", new { @class = "text-danger" })
         </div>
@@ -207,7 +207,7 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.DataEntrega, htmlAttributes: new { @class = "control-label col-md-3" })
-        <div class="col-md-10">
+        <div class="col-md-10 col-sm-10">
             @Html.TextBoxFor(model => model.DataEntrega, htmlAttributes: new { @class = "form-control", placeholder = "Data Máxima de Entrega", required = true, @type = "Date", @Value = Model.DataEntrega.ToString("yyyy-MM-dd") })
             @Html.ValidationMessageFor(model => model.DataEntrega, "", new { @class = "text-danger" })
         </div>
@@ -219,7 +219,7 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.NomeRecebedor, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="col-md-10 col-sm-10">
             @Html.EditorFor(model => model.NomeRecebedor, new { htmlAttributes = new { @class = "form-control", Placeholder = "Nome", maxlength = "255", required = true } })
             @Html.ValidationMessageFor(model => model.NomeRecebedor, "", new { @class = "text-danger" })
         </div>
@@ -227,7 +227,7 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.EmailRecebedor, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="col-md-10 col-sm-10">
             @Html.EditorFor(model => model.EmailRecebedor, new { htmlAttributes = new { @class = "form-control", Placeholder = "E-mail", maxlength = "255", required = true } })
             @Html.ValidationMessageFor(model => model.EmailRecebedor, "", new { @class = "text-danger" })
         </div>
@@ -235,7 +235,7 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.TelefoneRecebedor, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="col-md-10 col-sm-10">
             @Html.EditorFor(model => model.TelefoneRecebedor, new { htmlAttributes = new { @class = "form-control", Placeholder = "Telefone", maxlength = "20", required = true } })
             @Html.ValidationMessageFor(model => model.TelefoneRecebedor, "", new { @class = "text-danger" })
         </div>
@@ -244,7 +244,7 @@
     <hr />
 
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
+        <div class="col-md-offset-2 col-md-10 col-sm-10">
             <input type="submit" value="Solicitar/Editar Transporte" class="btn btn-primary" />
         </div>
     </div>
