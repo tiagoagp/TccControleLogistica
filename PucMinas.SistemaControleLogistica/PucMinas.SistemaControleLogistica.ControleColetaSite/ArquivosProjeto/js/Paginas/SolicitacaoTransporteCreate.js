@@ -39,7 +39,7 @@ $(document).ready(function () {
             '        <div class="row" style="margin-top:10px;">' +
             '            <div class="col-md-12">' +
             '                 <label class="control-label col-md-3">Descrição do Produto</label>' +
-            '                 <div class="col-md-12">' +
+            '                 <div class="col-md-12 col-sm-12">' +
             '                     <input type="text" class="form-control descricao-produto-lista" name="Produtos[' + indice + '].DescricaoProduto" />' +
             '                 </div>' +
             '            </div>' +
@@ -47,13 +47,13 @@ $(document).ready(function () {
             '        <div class="row" style="margin-top:10px;">' +
             '            <div class="col-md-6">' +
             '                 <label class="control-label col-md-5">Quantidade (Un.)</label>' +
-            '                 <div class="col-md-12">' +
+            '                 <div class="col-md-12 col-sm-12">' +
             '                     <input type="number" class="form-control quantidade-produto" name="Produtos[' + indice + '].Quantidade" />' +
             '                 </div>' +
             '            </div>' +
             '            <div class="col-md-6">' +
             '                <label class="control-label col-md-5">Peso (Kg)</label>' +
-            '                <div class="col-md-12">' +
+            '                <div class="col-md-12 col-sm-12">' +
             '                    <input type="number" class="form-control peso-produto" name="Produtos[' + indice + '].Peso" />' +
             '                </div>' +
             '            </div>' +
@@ -61,26 +61,26 @@ $(document).ready(function () {
             '        <div class="row" style="margin-top:10px;">' +
             '            <div class="col-md-4">' +
             '                <label class="control-label col-md-7">Altura (cm)</label>' +
-            '                <div class="col-md-12">' +
+            '                <div class="col-md-12 col-sm-12">' +
             '                    <input type="number" class="form-control altura-produto" name="Produtos[' + indice + '].Altura" />' +
             '                </div>' +
             '            </div>' +
             '            <div class="col-md-4">' +
             '                <label class="control-label col-md-7">Largura (cm)</label>' +
-            '                <div class="col-md-12">' +
+            '                <div class="col-md-12 col-sm-12">' +
             '                    <input type="number" class="form-control largura-produto" name="Produtos[' + indice + '].Largura" />' +
             '                </div>' +
             '            </div>' +
             '            <div class="col-md-4">' +
             '                <label class="control-label col-md-7">Comprimento (cm)</label>' +
-            '                <div class="col-md-12">' +
+            '                <div class="col-md-12 col-sm-12">' +
             '                    <input type="number" class="form-control comprimento-produto" name="Produtos[' + indice + '].Comprimento" />' +
             '                </div>' +
             '            </div>' +
             '        </div>' +
             '        <div class="row" style="margin-top:10px;">' +
-            '            <div class="col-md-12">' +
-            '                <div class="col-md-12">' +
+            '            <div class="col-md-12 col-sm-12">' +
+            '                <div class="col-md-12 col-sm-12">' +
             '                    <button class="btn btn-danger col-md-12 remove-produto"><i class="fa fa-trash"></i> Remover Produto</button>' +
             '                </div>' +
             '            </div>' +
